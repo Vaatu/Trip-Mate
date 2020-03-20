@@ -20,14 +20,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
     }
 
     //      MvpView methods       //
-    
+
     @Override
     public void showSignInScreen() {
+        // Here we Ask the presenter to open a New intent
+        mPresenter.handleSignInButtonClick();
         Toast.makeText(this, "Taking User to the SignIn Screen", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showSignUpScreen() {
+        // Here we Ask the presenter to open a New intent
+        mPresenter.handleSignUpButton();
         Toast.makeText(this, "Taking user to the Sign Up Screen", Toast.LENGTH_SHORT).show();
     }
 }
