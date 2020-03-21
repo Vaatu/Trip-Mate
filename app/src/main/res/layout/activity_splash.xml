@@ -8,13 +8,13 @@
 
     <ImageView
         android:id="@+id/splashscreen"
-        android:layout_width="265dp"
-        android:layout_height="328dp"
+        android:layout_width="208dp"
+        android:layout_height="195dp"
         android:layout_gravity="center"
-        android:layout_marginTop="136dp"
-        android:src="@drawable/logo_Splash"
+        android:layout_marginTop="180dp"
+        android:src="@drawable/logo_splash_screen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
