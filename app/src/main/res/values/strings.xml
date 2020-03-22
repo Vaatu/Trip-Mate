@@ -23,4 +23,9 @@
 
     <string name="home_second">Home Second</string>
     <string name="title_activity_user_cycle">UserCycleActivity</string>
+    <string name="email">Email</string>
+    <string name="pass">Pass</string>
+    <string name="sign_in">Sign In</string>
+    <string name="no_account_yet_sign_up_here">No account yet? Sign up here</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
