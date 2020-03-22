@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,9 @@ import com.vaatu.tripmate.R;
 //import com.vaatu.tripmate.R;
 
 public class SecondFragment extends Fragment {
+
+    EditText emailField;
+    EditText passField;
 
     @Override
     public View onCreateView(
