@@ -5,11 +5,12 @@ package com.vaatu.tripmate.ui.login;
  */
 public interface LoginContract {
 
-    interface MvpView{
+    interface MvpView {
 
 
     }
-    interface MvpPresenter{
+
+    interface MvpPresenter {
 
 
     }
