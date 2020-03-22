@@ -11,7 +11,7 @@ import com.vaatu.tripmate.ui.main.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
     /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 3500;
+    private final int SPLASH_DISPLAY_LENGTH = 1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

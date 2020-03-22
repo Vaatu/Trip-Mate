@@ -26,10 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:rippleColor="#ffff"
-
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
-        app:srcCompat="@android:drawable/ic_input_add" />
+         style="@style/Widget.Design.FloatingActionButton"
+        app:srcCompat="@android:drawable/ic_popup_reminder" />
 
     <include layout="@layout/content_home" />
 
