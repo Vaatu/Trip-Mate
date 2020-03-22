@@ -23,4 +23,10 @@
 
     <string name="home_second">Home Second</string>
     <string name="title_activity_user_cycle">UserCycleActivity</string>
+
+
+    <string name="tripname">TripName</string>
+    <string name="from">  From</string>
+    <string name="to">"    To"</string>
+
 </resources>
