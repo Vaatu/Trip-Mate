@@ -28,5 +28,6 @@
     <string name="tripname">TripName</string>
     <string name="from">  From</string>
     <string name="to">"    To"</string>
+    <string name="title_activity_homepage">homepageActivity</string>
 
 </resources>

@@ -12,7 +12,7 @@
         <activity
             android:name=".ui.user.UserCycleActivity"
             android:label="@string/title_activity_user_cycle"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.mainActivity.HomeActivity"
             android:label="@string/title_activity_home"
