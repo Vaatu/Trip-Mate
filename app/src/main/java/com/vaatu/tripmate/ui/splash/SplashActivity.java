@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.vaatu.tripmate.R;
-import com.vaatu.tripmate.ui.mainActivity.AppHomeActivity;
 import com.vaatu.tripmate.ui.user.UserCycleActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Main-Activity. */
-                Intent mainIntent = new Intent(SplashActivity.this, AppHomeActivity.class);
+                Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }
