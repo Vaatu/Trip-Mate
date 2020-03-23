@@ -5,7 +5,7 @@ public class CardviewModel {
 
     String startloc,endloc,date,time,status,tripname;
 
-    public CardviewModel(String startloc, String endloc, String date, String time, String status, String tripname) {
+    public CardviewModel(String startloc, String endloc, String date, String time, String tripname) {
         this.startloc = startloc;
         this.endloc = endloc;
         this.date = date;
@@ -49,13 +49,6 @@ public class CardviewModel {
         this.time = time;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getTripname() {
         return tripname;

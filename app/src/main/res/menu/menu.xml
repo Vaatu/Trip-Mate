@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/starttrip"
+
+        android:title="Start Trip">
+
+    </item>
+
+    <item
+        android:id="@+id/edittrip"
+        android:title="Edit Trip">
+
+    </item>
+
+    <item
+        android:id="@+id/cancel"
+        android:title="Cancel Trip">
+
+    </item>
+</menu>
