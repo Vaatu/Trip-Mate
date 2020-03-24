@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +43,8 @@ public class Login extends Fragment {
     FirebaseUser currentUser;
 
     GoogleSignInClient mGoogleSignInClient;
+
+    Button googleBtn;
     
 
     private static final int RC_SIGN_IN = 9001;
@@ -69,6 +73,9 @@ public class Login extends Fragment {
 
 
         mGoogleSignInClient =  GoogleSignIn.getClient(getActivity(), gso);
+
+        googleBtn = view.findViewById(R.id.google_btn);
+
 
     }
 
@@ -132,7 +139,7 @@ public class Login extends Fragment {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -143,7 +150,7 @@ public class Login extends Fragment {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            make(findViewById(R.id.main_layout), "Authentication Failed.", LENGTH_SHORT).show();
+//                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
 //                            updateUI(null);
                         }
 
