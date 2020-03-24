@@ -40,14 +40,9 @@ public class Login extends Fragment {
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
-    // Configure Google Sign In
-    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build();
-    mGoogleSignInClient =  GoogleSignIn.getClient(this, gso);
-
     GoogleSignInClient mGoogleSignInClient;
+
+
 
     @Override
     public View onCreateView(
@@ -64,6 +59,15 @@ public class Login extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         //                updateUI(null);
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+
+        mGoogleSignInClient =  GoogleSignIn.getClient(getActivity(), gso);
 
     }
 
