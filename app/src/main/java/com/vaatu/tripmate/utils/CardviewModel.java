@@ -4,6 +4,7 @@ public class CardviewModel {
 
 
     String startloc,endloc,date,time,status,tripname;
+    //@TODO add lat Long
 
     public CardviewModel(String startloc, String endloc, String date, String time, String tripname) {
         this.startloc = startloc;
