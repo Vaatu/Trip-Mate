@@ -1,5 +1,7 @@
 package com.vaatu.tripmate.ui.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -75,8 +77,33 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.upcoming_trips, menu);
+
         return true;
     }
+
+//
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.starttrip:
+//                Toast.makeText(UpcomingTripsActivity.this,"hhdh",Toast.LENGTH_LONG).show();
+//                // Displays an image of the Swiss Alps
+//                Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988");
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                mapIntent.setPackage("com.google.android.apps.maps");
+//                startActivity(mapIntent);
+//                return true;
+//            case R.id.edittrip:
+//
+//                return true;
+//            case R.id.cancel:
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {
