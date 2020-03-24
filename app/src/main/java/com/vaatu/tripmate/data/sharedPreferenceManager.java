@@ -53,6 +53,6 @@ public class sharedPreferenceManager {
         editor.remove("password");
         editor.remove("logintype");
         editor.apply();
-
     }
+
 }
