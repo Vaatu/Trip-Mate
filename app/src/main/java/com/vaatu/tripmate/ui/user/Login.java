@@ -43,7 +43,7 @@ public class Login extends Fragment {
     GoogleSignInClient mGoogleSignInClient;
     
 
-
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     public View onCreateView(
