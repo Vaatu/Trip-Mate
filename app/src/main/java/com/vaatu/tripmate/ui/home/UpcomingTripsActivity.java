@@ -63,6 +63,8 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     navController.navigate(R.id.action_HomeFragment_to_HomeSecondFragment);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     return true;
+                }else if((menuItem.getItemId() == R.id.nav){
+
                 }
                 return true;
             }
