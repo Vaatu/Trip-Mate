@@ -13,16 +13,14 @@
 
         <action
             android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
+            app:destination="@id/nav_history" />
     </fragment>
     <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.vaatu.tripmate.ui.home.ui.home.HomeSecondFragment"
+        android:id="@+id/nav_history"
+        android:name="com.vaatu.tripmate.ui.home.ui.history.HistoryFragment"
         android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
-        <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_home" />
+        tools:layout="@layout/history_fragment">
+
 
         <argument
             android:name="myArg"
