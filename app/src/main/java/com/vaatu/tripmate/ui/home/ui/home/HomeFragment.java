@@ -1,10 +1,14 @@
 package com.vaatu.tripmate.ui.home.ui.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.ui.home.UpcomingTripsActivity;
 import com.vaatu.tripmate.utils.CardviewModel;
 import com.vaatu.tripmate.utils.RecAdaptor;
 
@@ -55,4 +60,28 @@ public class HomeFragment extends Fragment {
 //        });
         return root;
     }
+
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.starttrip:
+//                Toast.makeText(HomeFragment.this,"hhdh",Toast.LENGTH_LONG).show();
+//                // Displays an image of the Swiss Alps
+//                Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988");
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                mapIntent.setPackage("com.google.android.apps.maps");
+//                startActivity(mapIntent);
+//                return true;
+//            case R.id.edittrip:
+//
+//                return true;
+//            case R.id.cancel:
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }

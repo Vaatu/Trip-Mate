@@ -1,6 +1,9 @@
 package com.vaatu.tripmate.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.nfc.tech.TagTechnology;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -37,28 +41,42 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.start.setText(list.get(position).startloc);
         holder.name.setText(list.get(position).tripname);
         holder.date.setText(list.get(position).date);
-       // holder.status.setText(list.get(position).status);
+
         holder.time.setText(list.get(position).time);
         holder.end.setText(list.get(position).endloc);
         holder.popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(cntxt,"gg",Toast.LENGTH_SHORT).show();
-                PopupMenu popupMenu= new PopupMenu(cntxt,holder.popup);
+
+                PopupMenu popupMenu = new PopupMenu(cntxt, holder.popup);
                 popupMenu.inflate(R.menu.menu);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                     //handle item selection
+                        if (item.getItemId() == R.id.starttrip) {
+                            Uri gmmIntentUri = Uri.parse("google.navigation:q=Tanta+Egypt,+smouha+Alexandria");
+
+                            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                            mapIntent.setPackage("com.google.android.apps.maps");
+                            cntxt.startActivity(mapIntent);
+                        }
+                        if (item.getItemId() == R.id.edittrip) {
+                          Toast.makeText(cntxt,"edit",Toast.LENGTH_LONG).show();
+                        }
+                        if (item.getItemId() == R.id.cancel) {}
+                        Toast.makeText(cntxt, "cancel", Toast.LENGTH_LONG).show();
                         return false;
                     }
                 });
 
-               popupMenu.show();
+                popupMenu.show();
             }
         });
     }
@@ -71,19 +89,19 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardview;
-        TextView start, end, date, time,name;
+        TextView start, end, date, time, name;
         Button popup;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-           // status = itemView.findViewById(R.id.status_id);
+            // status = itemView.findViewById(R.id.status_id);
             start = itemView.findViewById(R.id.start_loc_id);
             end = itemView.findViewById(R.id.end_loc_id);
             time = itemView.findViewById(R.id.Time_id);
             name = itemView.findViewById(R.id.trip_name_id);
             date = itemView.findViewById(R.id.Date_id);
-            popup= itemView.findViewById(R.id.pop_menu_id);
+            popup = itemView.findViewById(R.id.pop_menu_id);
         }
     }
 }
