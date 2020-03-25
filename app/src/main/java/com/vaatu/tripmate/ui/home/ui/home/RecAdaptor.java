@@ -1,9 +1,8 @@
-package com.vaatu.tripmate.utils;
+package com.vaatu.tripmate.ui.home.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.nfc.tech.TagTechnology;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.utils.CardviewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                     //handle item selection
+                     //handle item selection from the card pop menu 
                         if (item.getItemId() == R.id.starttrip) {
                             Uri gmmIntentUri = Uri.parse("google.navigation:q=Tanta+Egypt,+smouha+Alexandria");
 
@@ -69,6 +69,11 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                         }
                         if (item.getItemId() == R.id.edittrip) {
                           Toast.makeText(cntxt,"edit",Toast.LENGTH_LONG).show();
+
+                        }
+                        if (item.getItemId() == R.id.addnote) {
+                            Toast.makeText(cntxt,"add note",Toast.LENGTH_LONG).show();
+
                         }
                         if (item.getItemId() == R.id.cancel) {}
                         Toast.makeText(cntxt, "cancel", Toast.LENGTH_LONG).show();
