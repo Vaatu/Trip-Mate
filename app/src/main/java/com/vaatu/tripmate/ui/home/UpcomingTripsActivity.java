@@ -65,10 +65,12 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     navController.navigate(R.id.action_HomeFragment_to_HomeSecondFragment);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     return true;
+
                 }else if(menuItem.getItemId() == R.id.nav_slideshow){
                     Toast.makeText(UpcomingTripsActivity.this, "I'm Slideshow", Toast.LENGTH_SHORT).show();
 
                 }
+
                 return true;
             }
         });
@@ -82,29 +84,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         return true;
     }
 
-//
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.starttrip:
-//                Toast.makeText(UpcomingTripsActivity.this,"hhdh",Toast.LENGTH_LONG).show();
-//                // Displays an image of the Swiss Alps
-//                Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988");
-//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-//                mapIntent.setPackage("com.google.android.apps.maps");
-//                startActivity(mapIntent);
-//                return true;
-//            case R.id.edittrip:
-//
-//                return true;
-//            case R.id.cancel:
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
     @Override
     public boolean onSupportNavigateUp() {

@@ -3,7 +3,7 @@ package com.vaatu.tripmate.utils;
 public class CardviewModel {
 
 
-    String startloc,endloc,date,time,status,tripname;
+    public String startloc,endloc,date,time,status,tripname;
     //@TODO add lat Long
 
     public CardviewModel(String startloc, String endloc, String date, String time, String tripname) {

@@ -13,6 +13,11 @@
 
     </item>
 
+    <item android:id="@+id/addnote"
+        android:title="Edit Notes">
+
+    </item>
+
     <item
         android:id="@+id/cancel"
         android:title="Cancel Trip">
