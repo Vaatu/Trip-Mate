@@ -61,9 +61,8 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                     public boolean onMenuItemClick(MenuItem item) {
                      //handle item selection from the card pop menu 
                         if (item.getItemId() == R.id.starttrip) {
-//                            Uri gmmIntentUri = Uri.parse("google.navigation:q=Tanta+Egypt,+");
-                            Uri gmmIntentUri = Uri.parse("google.navigation:q=Tanta+Company,smouha+Alexandria");
 
+                            Uri gmmIntentUri = Uri.parse("google.navigation:q=Smouha+Alexandria");
                             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                             mapIntent.setPackage("com.google.android.apps.maps");
                             cntxt.startActivity(mapIntent);

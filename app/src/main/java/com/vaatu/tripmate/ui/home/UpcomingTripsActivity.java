@@ -52,7 +52,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_sync, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -64,15 +64,30 @@ public class UpcomingTripsActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if (menuItem.getItemId() == R.id.nav_gallery) {
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm Gallery", Toast.LENGTH_SHORT).show();
+                if (menuItem.getItemId() == R.id.nav_sync) {
+                    Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
                     navController.navigate(R.id.action_HomeFragment_to_HomeSecondFragment);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
                     return true;
+                } else if (menuItem.getItemId() == R.id.nav_logout) {
+                    //Navigation here
 
-                }else if(menuItem.getItemId() == R.id.nav_slideshow){
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm Slideshow", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
+                    return true;
+                } else if (menuItem.getItemId() == R.id.nav_home) {
+                    //Navigation here
+
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    return true;
+                } else if (menuItem.getItemId() == R.id.nav_history) {
+                    //Navigation here
+
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+                    return true;
                 }
 
                 return true;
@@ -87,7 +102,6 @@ public class UpcomingTripsActivity extends AppCompatActivity {
 
         return true;
     }
-
 
 
     @Override
