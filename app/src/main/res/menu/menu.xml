@@ -13,8 +13,8 @@
 
     </item>
 
-    <item android:id="@+id/addnote"
-        android:title="@string/edit_notes">
+    <item android:id="@+id/editnote"
+        android:title="Edit Notes">
 
     </item>
 

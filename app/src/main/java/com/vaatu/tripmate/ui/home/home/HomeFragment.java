@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +31,7 @@ public class HomeFragment extends Fragment {
         List<CardviewModel> mylist = new ArrayList<CardviewModel>();
         CardviewModel c1= new CardviewModel("smouha","loran","1/2/2020","9:30","WorkTrip");
 
-        CardviewModel c= new CardviewModel("smouha","loran","1/2/2020","9:30","WorkTrip");
+        CardviewModel c= new CardviewModel("Loran","loran","2/1/2020","5:30","HomeTrip");
         mylist.add(c);
         mylist.add(c1);
 
@@ -38,6 +39,8 @@ public class HomeFragment extends Fragment {
         RecAdaptor adpater = new RecAdaptor(mylist, getActivity());
         rev.setLayoutManager(new LinearLayoutManager(getContext()));
         rev.setAdapter(adpater);
+
+       // getSupportActionBar().setTitle("Home");
 //        homeViewModel =
 //                ViewModelProviders.of(this).get(HomeViewModel.class);
 //        View root = inflater.inflate(R.layout.fragment_home, container, false);

@@ -25,6 +25,7 @@ import java.util.List;
 public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
     List<CardviewModel> list = new ArrayList<>();
+    List<CardviewModel> canceledlist =  new ArrayList<>();
     Context cntxt;
 
 
@@ -59,7 +60,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                     //handle item selection from the card pop menu 
+                        //handle item selection from the card pop menu
                         if (item.getItemId() == R.id.starttrip) {
 
                             Uri gmmIntentUri = Uri.parse("google.navigation:q=Smouha+Alexandria");
@@ -68,15 +69,26 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                             cntxt.startActivity(mapIntent);
                         }
                         if (item.getItemId() == R.id.edittrip) {
-                          Toast.makeText(cntxt,"edit",Toast.LENGTH_LONG).show();
+                            Toast.makeText(cntxt, "edit Trip", Toast.LENGTH_LONG).show();
 
                         }
-                        if (item.getItemId() == R.id.addnote) {
-                            Toast.makeText(cntxt,"add note",Toast.LENGTH_LONG).show();
+                        if (item.getItemId() == R.id.editnote) {
+                            Toast.makeText(cntxt, "Edit note", Toast.LENGTH_LONG).show();
 
                         }
-                        if (item.getItemId() == R.id.cancel) {}
-                        Toast.makeText(cntxt, "cancel", Toast.LENGTH_LONG).show();
+                        if (item.getItemId() == R.id.cancel) {
+                            Toast.makeText(cntxt, "Cancel Trip", Toast.LENGTH_LONG).show();
+
+                            CardviewModel deleteditem;
+                            deleteditem = list.get(position);
+                            list.remove(deleteditem);
+                            notifyDataSetChanged();
+                            //Canceled List add the deleted items
+                            canceledlist.add(deleteditem);
+
+
+
+                        }
                         return false;
                     }
                 });
