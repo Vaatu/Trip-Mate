@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -43,6 +44,9 @@ public class UpcomingTripsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent addButtonActivity = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
+                startActivity(addButtonActivity);
+
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -51,7 +55,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_sync, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -63,15 +67,30 @@ public class UpcomingTripsActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if (menuItem.getItemId() == R.id.nav_gallery) {
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm Gallery", Toast.LENGTH_SHORT).show();
+                if (menuItem.getItemId() == R.id.nav_sync) {
+                    Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
                     navController.navigate(R.id.action_HomeFragment_to_HomeSecondFragment);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
                     return true;
+                } else if (menuItem.getItemId() == R.id.nav_logout) {
+                    //Navigation here
 
-                }else if(menuItem.getItemId() == R.id.nav_slideshow){
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm Slideshow", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
+                    return true;
+                } else if (menuItem.getItemId() == R.id.nav_home) {
+                    //Navigation here
+
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    return true;
+                } else if (menuItem.getItemId() == R.id.nav_history) {
+                    //Navigation here
+
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+                    return true;
                 }
 
                 return true;
@@ -86,7 +105,6 @@ public class UpcomingTripsActivity extends AppCompatActivity {
 
         return true;
     }
-
 
 
     @Override

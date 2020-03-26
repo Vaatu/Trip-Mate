@@ -3,13 +3,13 @@
     <item
         android:id="@+id/starttrip"
 
-        android:title="Start Trip">
+        android:title="@string/start_trip">
 
     </item>
 
     <item
         android:id="@+id/edittrip"
-        android:title="Edit Trip">
+        android:title="@string/edit_trip">
 
     </item>
 
@@ -20,7 +20,7 @@
 
     <item
         android:id="@+id/cancel"
-        android:title="Cancel Trip">
+        android:title="@string/cancel_trip">
 
     </item>
 </menu>

@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_history"
-        android:name="com.vaatu.tripmate.ui.home.ui.history.HistoryFragment"
+        android:name="com.vaatu.tripmate.ui.home.history.HistoryFragment"
         android:label="@string/home_second"
         tools:layout="@layout/history_fragment">
 
@@ -28,14 +28,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.vaatu.tripmate.ui.home.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_sync"
+        android:name="com.vaatu.tripmate.ui.home.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.vaatu.tripmate.ui.home.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_logout"
+        android:name="com.vaatu.tripmate.ui.home.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>
