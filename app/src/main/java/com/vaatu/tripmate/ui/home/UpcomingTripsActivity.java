@@ -33,7 +33,10 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upcoming_trips);
         Toolbar toolbar = findViewById(R.id.toolbar);
+      //  toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
+
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
