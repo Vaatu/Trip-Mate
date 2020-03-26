@@ -1,9 +1,7 @@
 package com.vaatu.tripmate.ui.home;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -18,7 +16,6 @@ import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -66,7 +63,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
 
                 if (menuItem.getItemId() == R.id.nav_sync) {
                     Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
-                    navController.navigate(R.id.action_HomeFragment_to_HomeSecondFragment);
+                    navController.navigate(R.id.action_nav_home_to_nav_sync);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
                     return true;
@@ -84,7 +81,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_history) {
                     //Navigation here
-
+                    navController.navigate(R.id.action_HomeFragment_to_History);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
                     return true;

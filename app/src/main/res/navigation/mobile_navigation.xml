@@ -12,8 +12,11 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+            android:id="@+id/action_HomeFragment_to_History"
             app:destination="@id/nav_history" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_sync"
+            app:destination="@id/nav_sync" />
     </fragment>
     <fragment
         android:id="@+id/nav_history"
