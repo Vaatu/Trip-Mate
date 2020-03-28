@@ -59,13 +59,14 @@ public class SignUp extends Fragment {
 
             }
         });
+        Bundle b = this.getArguments();
 
+        Log.i("Bundle", b.getString("Email") + " ");
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_signup_login,null);
-
+                navController.navigate(R.id.action_signup_login);
             }
         });
 
@@ -79,7 +80,7 @@ public class SignUp extends Fragment {
         currentUser = mAuth.getCurrentUser();
     }
 
-    void createUser(String email, String password){
+    void createUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override

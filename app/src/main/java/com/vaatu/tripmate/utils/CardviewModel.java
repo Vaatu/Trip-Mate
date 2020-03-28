@@ -6,16 +6,25 @@ public class CardviewModel {
     public String startloc,endloc,date,time,status,tripname;
     //@TODO add lat Long
 
-    public CardviewModel(String startloc, String endloc, String date, String time, String tripname) {
+    public CardviewModel(String startloc, String endloc, String date, String time, String tripname, String status) {
         this.startloc = startloc;
         this.endloc = endloc;
         this.date = date;
         this.time = time;
         this.status = status;
         this.tripname = tripname;
+        this.status = status;
     }
 
     public CardviewModel() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getStartloc() {
