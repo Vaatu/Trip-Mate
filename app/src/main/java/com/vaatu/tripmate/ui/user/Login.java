@@ -32,6 +32,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.ui.home.UpcomingTripsActivity;
+import com.vaatu.tripmate.ui.splash.SplashActivity;
 
 import static android.content.ContentValues.TAG;
 import static com.google.android.material.snackbar.Snackbar.LENGTH_SHORT;
@@ -205,7 +207,11 @@ public class Login extends Fragment {
     private void updateUI(FirebaseUser user) {
 //        hideProgressBar();
         if (user != null) {
-//            @TODO NAVIGATE TO HOME ACTIVITY
+
+            Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
+            startActivity(mainIntent);
+            getActivity().finish();
+
         } else {
             mStatusTextView.setText("Invalid Credentials");
         }

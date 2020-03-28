@@ -1,5 +1,6 @@
 package com.vaatu.tripmate.ui.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.ui.home.UpcomingTripsActivity;
 
 import static android.content.ContentValues.TAG;
 
@@ -30,12 +33,16 @@ public class SignUp extends Fragment {
 
     EditText emailField;
     EditText passField;
+    EditText passField2;
+    EditText nameField;
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
     Button btnBack;
     Button btnSignUp;
+
+    TextView mStatusTextView;
 
     @Override
     public View onCreateView(
@@ -51,17 +58,32 @@ public class SignUp extends Fragment {
 
         emailField = view.findViewById(R.id.emailField);
         passField = view.findViewById(R.id.passField);
+        passField2 = view.findViewById(R.id.passField2);
+        nameField = view.findViewById(R.id.nameField);
+
+
+        mStatusTextView = view.findViewById(R.id.textViewStatus);
+
+        Bundle b = this.getArguments();
+
+        emailField.setText(b.getString("Email"));
+        passField.setText(b.getString("Pass"));
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createUser(emailField.getText().toString(), passField.getText().toString());
+                if (nameField.getText().toString() == ""){
+                if (passField.getText().toString() == passField2.getText().toString()) {
+                    createUser(emailField.getText().toString(), passField.getText().toString());
+                }else{
+                    mStatusTextView.setText("Password doesn't match");
+                }}else{
+                    mStatusTextView.setText("Please enter your name");
+                }
 
             }
         });
-        Bundle b = this.getArguments();
 
-        Log.i("Bundle", b.getString("Email") + " ");
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,13 +111,13 @@ public class SignUp extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+                            updateUI(null);
                         }
 
                         // ...
@@ -103,5 +125,17 @@ public class SignUp extends Fragment {
                 });
     }
 
+    private void updateUI(FirebaseUser user) {
+//        hideProgressBar();
+        if (user != null) {
 
+            Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
+            startActivity(mainIntent);
+            getActivity().finish();
+
+        } else {
+            mStatusTextView.setText("Invalid Credentials");
+        }
+
+    }
 }
