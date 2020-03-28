@@ -80,7 +80,7 @@ public class Login extends Fragment {
                     passField.setError("Must Enter Password");
                 }
 
-                navController.navigate(R.id.action_login_signUp,null);
+                navController.navigate(R.id.action_login_signUp,bundle);
 
             }
         });
@@ -123,7 +123,7 @@ public class Login extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-//                updateUI(user);
+//                          updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -144,6 +144,7 @@ public class Login extends Fragment {
     }
 
     private void signIn() {
+        Log.i("Google Sign in" , "Im in");
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
