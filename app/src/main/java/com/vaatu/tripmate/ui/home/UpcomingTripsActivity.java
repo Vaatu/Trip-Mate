@@ -68,11 +68,11 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
                     navController.navigate(R.id.action_nav_home_to_nav_sync);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
+                              fab.hide();
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_logout) {
                     //Navigation here
-
+                    fab.hide();
                     Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -86,7 +86,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     //Navigation here
                     navController.navigate(R.id.action_HomeFragment_to_History);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
+                    fab.hide();
                     return true;
                 }
 
