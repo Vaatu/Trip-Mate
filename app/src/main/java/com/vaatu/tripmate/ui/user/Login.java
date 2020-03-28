@@ -12,11 +12,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +48,8 @@ public class Login extends Fragment {
 
     GoogleSignInClient mGoogleSignInClient;
 
-    Button googleBtn;
+    Button btnSignUp;
+    SignInButton googleBtn;
     
 
     private static final int RC_SIGN_IN = 9001;
@@ -55,7 +60,33 @@ public class Login extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.login, container, false);
+        View view = inflater.inflate(R.layout.login, container, false);
+
+        btnSignUp = view.findViewById(R.id.btnSignUp);
+        emailField = view.findViewById(R.id.emailField);
+        passField = view.findViewById(R.id.passField);
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                Bundle bundle = new Bundle();
+                if (!emailField.getText().toString().equals("") && !passField.getText().toString().equals("")) {
+                    bundle.putString("Email", emailField.getText().toString());
+                    bundle.putString("Pass", passField.getText().toString());
+                }else {
+                    emailField.setError("Enter an Email");
+                    passField.setError("Must Enter Password");
+                }
+
+                navController.navigate(R.id.action_login_signUp,null);
+
+            }
+        });
+
+        return view;
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -75,6 +106,8 @@ public class Login extends Fragment {
         mGoogleSignInClient =  GoogleSignIn.getClient(getActivity(), gso);
 
         googleBtn = view.findViewById(R.id.google_btn);
+
+
 
 
     }
@@ -158,4 +191,5 @@ public class Login extends Fragment {
                     }
                 });
     }
+
 }

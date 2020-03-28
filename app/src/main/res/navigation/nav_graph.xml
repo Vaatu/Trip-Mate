@@ -12,7 +12,7 @@
         tools:layout="@layout/login">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_login_signUp"
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
@@ -20,9 +20,8 @@
         android:name="com.vaatu.tripmate.ui.user.SignUp"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/up_sign">
-
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_signup_login"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
