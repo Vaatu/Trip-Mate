@@ -19,5 +19,9 @@
         android:id="@+id/SecondFragment"
         android:name="com.vaatu.tripmate.ui.user.SignUp"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/up_sign"/>
+        tools:layout="@layout/up_sign">
+        <action
+            android:id="@+id/action_signup_login"
+            app:destination="@id/FirstFragment" />
+    </fragment>
 </navigation>
