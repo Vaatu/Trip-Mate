@@ -35,6 +35,7 @@ public class SignUp extends Fragment {
     FirebaseUser currentUser;
 
     Button btnBack;
+    Button btnSignUp;
 
     @Override
     public View onCreateView(
@@ -46,6 +47,18 @@ public class SignUp extends Fragment {
         View view = inflater.inflate(R.layout.up_sign, container, false);
 
         btnBack = view.findViewById(R.id.btnBack);
+        btnSignUp = view.findViewById(R.id.btnSignUp);
+
+        emailField = view.findViewById(R.id.emailField);
+        passField = view.findViewById(R.id.passField);
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createUser(emailField.getText().toString(), passField.getText().toString());
+
+            }
+        });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +102,5 @@ public class SignUp extends Fragment {
                 });
     }
 
-    public void signUp(View view) {
-        createUser(emailField.getText().toString(), passField.getText().toString());
-    }
+
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,10 @@ public class Login extends Fragment {
     GoogleSignInClient mGoogleSignInClient;
 
     Button btnSignUp;
-    SignInButton googleBtn;
+    Button btnSignIn;
+    public SignInButton btnGoogle;
+
+    TextView mStatusTextView;
     
 
     private static final int RC_SIGN_IN = 9001;
@@ -65,6 +69,10 @@ public class Login extends Fragment {
         btnSignUp = view.findViewById(R.id.btnSignUp);
         emailField = view.findViewById(R.id.emailField);
         passField = view.findViewById(R.id.passField);
+        mStatusTextView = view.findViewById(R.id.textViewStatus);
+        btnSignIn = view.findViewById(R.id.btnSignIn);
+        btnGoogle = view.findViewById(R.id.google_btn);
+
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +93,21 @@ public class Login extends Fragment {
             }
         });
 
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login(emailField.getText().toString(), passField.getText().toString());
+            }
+        });
+
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
+
         return view;
 
     }
@@ -94,7 +117,7 @@ public class Login extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        //                updateUI(null);
+//                        updateUI(null);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -104,12 +127,6 @@ public class Login extends Fragment {
 
 
         mGoogleSignInClient =  GoogleSignIn.getClient(getActivity(), gso);
-
-        googleBtn = view.findViewById(R.id.google_btn);
-
-
-
-
     }
 
 
@@ -123,30 +140,18 @@ public class Login extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-//                updateUI(user);
+                updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-//                updateUI(null);
-                            // ...
+                            updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }
 
-    public void loginUser(View view) {
-        login(emailField.getText().toString(), passField.getText().toString());
 
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -179,17 +184,28 @@ public class Login extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-//                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-//                            updateUI(null);
+                            updateUI(null);
                         }
 
                         // ...
                     }
                 });
     }
+
+    private void updateUI(FirebaseUser user) {
+//        hideProgressBar();
+        if (user != null) {
+//            @TODO NAVIGATE TO HOME ACTIVITY
+        } else {
+            mStatusTextView.setText("Invalid Credentials");
+        }
+    }
+
+//    hideProgressBar(){}
+//    showProgressBar(){}
 
 }
