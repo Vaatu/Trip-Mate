@@ -27,7 +27,8 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        FirebaseDB fireb = new FirebaseDB();
+        FirebaseDB fireb =  FirebaseDB.getInstance();
+
 
         List<CardviewModel> mylist = new ArrayList<CardviewModel>();
         CardviewModel c1= new CardviewModel("smouha","loran","1/2/2020","9:30","WorkTrip","");
