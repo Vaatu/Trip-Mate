@@ -72,13 +72,14 @@ public class SignUp extends Fragment {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nameField.getText().toString() == ""){
-                if (passField.getText().toString() == passField2.getText().toString()) {
-                    createUser(emailField.getText().toString(), passField.getText().toString());
-                }else{
-                    mStatusTextView.setText("Password doesn't match");
-                }}else{
+                if (nameField.getText().toString().equals("")) {
                     mStatusTextView.setText("Please enter your name");
+                } else {
+                    if (passField.getText().toString().equals(passField2.getText().toString())) {
+                        createUser(emailField.getText().toString(), passField.getText().toString());
+                    } else {
+                        mStatusTextView.setText("Password doesn't match");
+                    }
                 }
 
             }
