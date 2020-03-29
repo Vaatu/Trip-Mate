@@ -11,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
 
 import androidx.annotation.NonNull;
@@ -31,7 +32,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upcoming_trips);
         Toolbar toolbar = findViewById(R.id.toolbar);
-      //  toolbar.setTitle("Home");
+
         setSupportActionBar(toolbar);
 
 

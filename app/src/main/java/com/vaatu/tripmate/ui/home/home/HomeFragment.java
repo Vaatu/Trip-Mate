@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.utils.CardviewModel;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        FirebaseDB fireb = new FirebaseDB();
 
         List<CardviewModel> mylist = new ArrayList<CardviewModel>();
         CardviewModel c1= new CardviewModel("smouha","loran","1/2/2020","9:30","WorkTrip","");
@@ -33,6 +35,8 @@ public class HomeFragment extends Fragment {
         CardviewModel c= new CardviewModel("Loran","loran","2/1/2020","5:30","HomeTrip","");
         mylist.add(c);
         mylist.add(c1);
+        fireb.saveTripToDatabase(mylist.get(0));
+
 
         RecyclerView rev = root.findViewById(R.id.recycler);
         RecAdaptor adpater = new RecAdaptor(mylist, getActivity());

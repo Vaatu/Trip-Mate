@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 /* Create an Intent that will start the Main-Activity. */
                 Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
-//                Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
+               // Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
 
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
