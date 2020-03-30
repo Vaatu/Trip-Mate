@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -17,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
+import com.vaatu.tripmate.ui.splash.SplashActivity;
+import com.vaatu.tripmate.ui.user.UserCycleActivity;
 import com.vaatu.tripmate.utils.TripModel;
 
 import androidx.annotation.NonNull;
@@ -88,7 +93,11 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     //Navigation here
                     fab.hide();
                     Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
+                    signOut();
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                     Intent mainIntent = new Intent(UpcomingTripsActivity.this, UserCycleActivity.class);
+                    startActivity(mainIntent);
+                    finish();
 
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_home) {
@@ -144,6 +153,11 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+
     }
 
 }
