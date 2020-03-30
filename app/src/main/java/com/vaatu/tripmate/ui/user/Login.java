@@ -61,10 +61,7 @@ public class Login extends Fragment {
     private static final int RC_SIGN_IN = 9001;
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.login, container, false);
 
@@ -74,6 +71,15 @@ public class Login extends Fragment {
         mStatusTextView = view.findViewById(R.id.textViewStatus);
         btnSignIn = view.findViewById(R.id.btnSignIn);
         btnGoogle = view.findViewById(R.id.google_btn);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null){
+            Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
+            startActivity(mainIntent);
+            getActivity().finish();
+        }
 
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {

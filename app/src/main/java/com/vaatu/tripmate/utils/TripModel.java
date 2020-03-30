@@ -1,11 +1,35 @@
 package com.vaatu.tripmate.utils;
 
-public class TripModel {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+public class TripModel implements Serializable {
 
 
-    private String startloc,endloc,date,time,status,tripname;
+    public String startloc,endloc,date,time,status,tripname;
+    private List<String> notes = new ArrayList<>();
     //@TODO add lat Long
 
+    public List<String> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<String> notes) {
+        this.notes = notes;
+    }
+
+    public TripModel(String startloc, String endloc, String date, String time, String tripname, String status, List<String> notes) {
+        this.startloc = startloc;
+        this.endloc = endloc;
+        this.date = date;
+        this.time = time;
+        this.status = status;
+        this.tripname = tripname;
+        this.status = status;
+        this.notes = notes;
+    }
     public TripModel(String startloc, String endloc, String date, String time, String tripname, String status) {
         this.startloc = startloc;
         this.endloc = endloc;
@@ -14,6 +38,7 @@ public class TripModel {
         this.status = status;
         this.tripname = tripname;
         this.status = status;
+        this.notes = null;
     }
 
     public TripModel() {

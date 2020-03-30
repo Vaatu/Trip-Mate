@@ -1,12 +1,17 @@
 package com.vaatu.tripmate.ui.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -15,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
+import com.vaatu.tripmate.ui.splash.SplashActivity;
+import com.vaatu.tripmate.ui.user.UserCycleActivity;
+import com.vaatu.tripmate.utils.TripModel;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -30,6 +38,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    FirebaseDB fbdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +49,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        FirebaseDB fbdb = FirebaseDB.getInstance();
+        fbdb = FirebaseDB.getInstance();
         fbdb.saveUserToFirebase(currentUser.getEmail());
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -49,8 +58,10 @@ public class UpcomingTripsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent addButtonActivity = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
-                startActivity(addButtonActivity);
+//                Intent addButtonActivity = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
+//                startActivity(addButtonActivity);
+                Intent i = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
+                startActivityForResult(i, 55);
 
             }
         });
@@ -76,13 +87,17 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
                     navController.navigate(R.id.action_nav_home_to_nav_sync);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                              fab.hide();
+                    fab.hide();
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_logout) {
                     //Navigation here
                     fab.hide();
                     Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
+                    signOut();
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                     Intent mainIntent = new Intent(UpcomingTripsActivity.this, UserCycleActivity.class);
+                    startActivity(mainIntent);
+                    finish();
 
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_home) {
@@ -121,4 +136,28 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (55): {
+                if (resultCode == Activity.RESULT_OK) {
+                    TripModel newtrip = (TripModel) data.getSerializableExtra("NEWTRIP");
+                    if (newtrip != null) {
+                        fbdb.saveTripToDatabase(newtrip);
+                    } else {
+                        Toast.makeText(this, "Something wend wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+
+    }
+
 }
