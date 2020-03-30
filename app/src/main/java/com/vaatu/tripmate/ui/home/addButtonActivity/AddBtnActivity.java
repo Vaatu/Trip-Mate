@@ -3,6 +3,7 @@ package com.vaatu.tripmate.ui.home.addButtonActivity;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,7 @@ import android.app.DatePickerDialog;
 
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -77,9 +79,10 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     int increasedID = 0;
     ArrayAdapter<CharSequence> adapterTripDirectionSpin;
     ArrayAdapter<CharSequence> adapterTripRepeatSpin;
-
+    List<TextInputLayout> mNotesTextInputLayout= new ArrayList<>();
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_btn);
@@ -89,6 +92,9 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
 
         //Spinner init
         spinnerInit();
+
+        // add first Note to mNotesTextInputLayout !
+        mNotesTextInputLayout.add(noteTextField);
     }
 
     private void setUpAutoComplete() {
@@ -136,34 +142,17 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
 
     }
 
-    @OnClick({R.id.add_trip_btn, R.id.add_note_btn, R.id.notes_linearLayout, R.id.dateTextField, R.id.timeTextField})
+    @OnClick({R.id.add_trip_btn, R.id.add_note_btn, R.id.dateTextField, R.id.timeTextField})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_trip_btn:
-                Toast.makeText(this, "Hello add_trip_btn :)", Toast.LENGTH_SHORT).show();
+                //@TODO Copy this to another place !
+                for( TextInputLayout txtLayout : mNotesTextInputLayout){
+                    Log.i("Notes List" ,txtLayout.getEditText().getText().toString());
+                }
                 break;
             case R.id.add_note_btn:
-//                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.notes_linearLayout);
-//                linearLayout.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//                linearLayout.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-//                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-//                linearLayout.setId(R.id.notes_linearLayout + increasedID);
-//
-//                View v = getLayoutInflater().inflate(R.layout.activity_add_btn, null);
-//
-//                ImageButton imgBtn = v.findViewById(R.id.add_note_btn);
-//                imgBtn.setId(R.id.add_note_btn + increasedID);
-//
-//                TextInputLayout noteText = v.findViewById(R.id.note_text_field);
-//                noteText.setId(R.id.add_note_btn + increasedID);
-//
-//                LinearLayout parent = findViewById(R.id.notes_parent_linear_Layout);
-//                parent.addView(linearLayout);
-//
-//
-//                increasedID++;
-                break;
-            case R.id.notes_linearLayout:
+                generateNoteLayout(view);
                 break;
             case R.id.dateTextField:
                 DialogFragment datepicker = new DatePickerFragment();
@@ -257,5 +246,24 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
 
             }
         });
+    }
+
+    private void generateNoteLayout(View view) {
+        LinearLayout currentParent = findViewById(R.id.notes_parent_linear_Layout);
+
+        View linearLayout = getLayoutInflater().inflate(R.layout.add_notes_sayout_sample, null);
+
+        TextInputLayout noteTextInput = linearLayout.findViewById(R.id.note_text_field_input);
+        mNotesTextInputLayout.add(noteTextInput);
+
+        ImageButton subImgBtn = linearLayout.findViewById(R.id.sub_note_img_btn);
+        subImgBtn.setOnClickListener(v -> {
+            currentParent.removeView(linearLayout);
+            mNotesTextInputLayout.remove(noteTextInput);
+        });
+
+        currentParent.addView(linearLayout);
+        increasedID++;
+
     }
 }
