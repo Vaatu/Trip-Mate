@@ -1,6 +1,8 @@
 package com.vaatu.tripmate.ui.home.addButtonActivity;
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,6 +30,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.ui.home.UpcomingTripsActivity;
+import com.vaatu.tripmate.utils.TripModel;
 import com.vaatu.tripmate.utils.dateTimePicker.DatePickerFragment;
 import com.vaatu.tripmate.utils.dateTimePicker.TimePickerFragment;
 
@@ -70,8 +74,7 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     LinearLayout linearLayout;
     @BindView(R.id.trip_name_text_field)
     TextInputLayout tripNameTextField;
-    AutocompleteSupportFragment placeStartPointAutoComplete;
-    AutocompleteSupportFragment placeDestPointAutoComplete;
+
     PlacesClient mPlacesClient;
     List<Place.Field> placeField = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
     int hour;
@@ -79,7 +82,10 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     int increasedID = 0;
     ArrayAdapter<CharSequence> adapterTripDirectionSpin;
     ArrayAdapter<CharSequence> adapterTripRepeatSpin;
-    List<TextInputLayout> mNotesTextInputLayout= new ArrayList<>();
+    List<TextInputLayout> mNotesTextInputLayout = new ArrayList<>();
+    String selectedStartPlace = "";
+    String selectedEndPlace = "" ;
+    List<String> notesList = new ArrayList<>();
 
     @Override
 
@@ -98,47 +104,49 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     }
 
     private void setUpAutoComplete() {
+        AutocompleteSupportFragment placeStartPointAutoComplete;
+        AutocompleteSupportFragment placeDestPointAutoComplete;
         if (!Places.isInitialized()) {
             // @TODO Get Places API key
             Places.initialize(getApplicationContext(), "AIzaSyDbQxlvW4q0t1rhRHicRHVDzWbDP8y1Hlc");
-            //Init Frags
-            placeStartPointAutoComplete = (AutocompleteSupportFragment)
-                    getSupportFragmentManager().findFragmentById(R.id.start_autoComplete_Frag);
-            placeStartPointAutoComplete.setPlaceFields(placeField);
+             }
+        //Init Frags
+        placeStartPointAutoComplete = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.start_autoComplete_Frag);
+        placeStartPointAutoComplete.setPlaceFields(placeField);
 
-            placeDestPointAutoComplete = (AutocompleteSupportFragment)
-                    getSupportFragmentManager().findFragmentById(R.id.dest_autoComplete_Frag);
-            placeDestPointAutoComplete.setPlaceFields(placeField);
+        placeDestPointAutoComplete = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.dest_autoComplete_Frag);
+        placeDestPointAutoComplete.setPlaceFields(placeField);
 
-            placeStartPointAutoComplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // TODO: Get info about the selected place.
-                    Log.i("Places", "Place: " + place.getAddress() + ", " + place.getId());
-                }
+        placeStartPointAutoComplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i("Places", "Place: " + place.getAddress() + ", " + place.getId());
+                selectedStartPlace = place.getAddress();
+            }
 
-                @Override
-                public void onError(Status status) {
-                    // TODO: Handle the error.
-                    Log.i("Places", "An error occurred: " + status);
-                }
-            });
-            placeDestPointAutoComplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // TODO: Get info about the selected place.
-                    Log.i("Places", "Place: " + place.getAddress() + ", " + place.getId());
-                }
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("Places", "An error occurred: " + status);
+            }
+        });
+        placeDestPointAutoComplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i("Places", "Place: " + place.getAddress() + ", " + place.getId());
+                selectedEndPlace = place.getAddress();
+            }
 
-                @Override
-                public void onError(Status status) {
-                    // TODO: Handle the error.
-                    Log.i("Places", "An error occurred: " + status);
-                }
-            });
-
-
-        }
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("Places", "An error occurred: " + status);
+            }
+        });
 
     }
 
@@ -147,9 +155,27 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         switch (view.getId()) {
             case R.id.add_trip_btn:
                 //@TODO Copy this to another place !
-                for( TextInputLayout txtLayout : mNotesTextInputLayout){
-                    Log.i("Notes List" ,txtLayout.getEditText().getText().toString());
+                for (TextInputLayout txtLayout : mNotesTextInputLayout) {
+                    Log.i("Notes List", txtLayout.getEditText().getText().toString());
+                    notesList.add(txtLayout.getEditText().getText().toString());
                 }
+                if (tripNameTextField.getEditText().getText().toString().equals("")) {
+                    tripNameTextField.setError("Cannot be blank!");
+                } else if (dateTextField.getText().toString().equals("")) {
+                    dateTextField.setError("Cannot be blank!");
+                }else if (timeTextField.getText().toString().equals("")){
+                    timeTextField.setError("Cannot be blank!");
+                }else{
+                    TripModel newTrip = new TripModel(selectedStartPlace,selectedEndPlace,dateTextField.getText().toString(),
+                            timeTextField.getText().toString(),tripNameTextField.getEditText().getText().toString(),null,notesList);
+
+                    Intent i = new Intent(this,UpcomingTripsActivity.class);
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("NEWTRIP",newTrip);
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                }
+
                 break;
             case R.id.add_note_btn:
                 generateNoteLayout(view);
@@ -162,7 +188,6 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
             case R.id.timeTextField:
                 DialogFragment timepicker = new TimePickerFragment();
                 timepicker.show(getSupportFragmentManager(), "time");
-
                 break;
         }
     }
