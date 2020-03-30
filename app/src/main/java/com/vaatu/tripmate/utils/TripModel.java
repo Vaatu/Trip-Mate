@@ -3,7 +3,7 @@ package com.vaatu.tripmate.utils;
 public class TripModel {
 
 
-    public String startloc,endloc,date,time,status,tripname;
+    private String startloc,endloc,date,time,status,tripname;
     //@TODO add lat Long
 
     public TripModel(String startloc, String endloc, String date, String time, String tripname, String status) {
