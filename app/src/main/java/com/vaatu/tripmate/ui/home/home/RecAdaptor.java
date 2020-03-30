@@ -17,19 +17,19 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vaatu.tripmate.R;
-import com.vaatu.tripmate.utils.CardviewModel;
+import com.vaatu.tripmate.utils.TripModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
-    List<CardviewModel> list = new ArrayList<>();
-    List<CardviewModel> canceledlist =  new ArrayList<>();
+    List<TripModel> list = new ArrayList<>();
+    List<TripModel> canceledlist =  new ArrayList<>();
     Context cntxt;
 
 
-    public RecAdaptor(List<CardviewModel> list, Context cntxt) {
+    public RecAdaptor(List<TripModel> list, Context cntxt) {
         this.list = list;
         this.cntxt = cntxt;
     }
@@ -79,7 +79,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                         if (item.getItemId() == R.id.cancel) {
                             Toast.makeText(cntxt, "Cancel Trip", Toast.LENGTH_LONG).show();
 
-                            CardviewModel deleteditem;
+                            TripModel deleteditem;
                             deleteditem = list.get(position);
                             list.remove(deleteditem);
                             notifyDataSetChanged();

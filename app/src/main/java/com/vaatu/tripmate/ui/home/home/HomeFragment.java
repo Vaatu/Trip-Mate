@@ -19,8 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vaatu.tripmate.R;
-import com.vaatu.tripmate.data.remote.network.FirebaseDB;
-import com.vaatu.tripmate.utils.CardviewModel;
+import com.vaatu.tripmate.utils.TripModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference mTripsRef;
-    private List<CardviewModel> tripDetails = new ArrayList<>();
+    private List<TripModel> tripDetails = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +54,7 @@ public class HomeFragment extends Fragment {
                 tripDetails.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    tripDetails.add(ds.getValue(CardviewModel.class));
+                    tripDetails.add(ds.getValue(TripModel.class));
                 }
                 adpater.notifyDataSetChanged();
                 // ...

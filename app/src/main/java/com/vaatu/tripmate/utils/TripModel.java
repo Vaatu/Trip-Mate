@@ -1,12 +1,12 @@
 package com.vaatu.tripmate.utils;
 
-public class CardviewModel {
+public class TripModel {
 
 
     public String startloc,endloc,date,time,status,tripname;
     //@TODO add lat Long
 
-    public CardviewModel(String startloc, String endloc, String date, String time, String tripname, String status) {
+    public TripModel(String startloc, String endloc, String date, String time, String tripname, String status) {
         this.startloc = startloc;
         this.endloc = endloc;
         this.date = date;
@@ -16,7 +16,7 @@ public class CardviewModel {
         this.status = status;
     }
 
-    public CardviewModel() {
+    public TripModel() {
     }
 
     public String getStatus() {

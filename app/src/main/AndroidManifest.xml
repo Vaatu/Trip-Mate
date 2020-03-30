@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vaatu.tripmate">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.addButtonActivity.AddBtnActivity"></activity>
+        <activity android:name=".ui.home.addButtonActivity.AddBtnActivity" />
         <activity
             android:name=".ui.home.UpcomingTripsActivity"
             android:label="@string/title_activity_upcoming_trips"
@@ -33,10 +38,5 @@
             android:name="com.here.sdk.access_key_secret"
             android:value="I6LRB5jrQboc7SFNqP59ZWjq5KNJ9MFQcUKXWIcOmapaobTS_dj3FS-iDbM7YDoB6Catwq-IouWTTwy6fNutvQ" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

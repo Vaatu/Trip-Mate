@@ -1,35 +1,29 @@
 package com.vaatu.tripmate.ui.home.history;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vaatu.tripmate.R;
-import com.vaatu.tripmate.utils.CardviewModel;
+import com.vaatu.tripmate.utils.TripModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHolder> {
 
-    List<CardviewModel> list = new ArrayList<>();
+    List<TripModel> list = new ArrayList<>();
    // List<CardviewModel> canceledlist =  new ArrayList<>();
     Context cntxt;
 
 
-    public HistoryAdaptor(List<CardviewModel> list, Context cntxt) {
+    public HistoryAdaptor(List<TripModel> list, Context cntxt) {
         this.list = list;
         this.cntxt = cntxt;
     }

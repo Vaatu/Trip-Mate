@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.vaatu.tripmate.utils.CardviewModel;
+import com.vaatu.tripmate.utils.TripModel;
 
 public class FirebaseDB {
     DatabaseReference myRef;
@@ -40,7 +40,7 @@ public class FirebaseDB {
         }
     }
 
-    public void saveTripToDatabase(CardviewModel cvm) {
+    public void saveTripToDatabase(TripModel cvm) {
 
         myRef.child("trip-mate").child(currentUser.getUid()).child("trips").child(myRef.push().getKey()).setValue(cvm);
         Log.i("Firebase Database", "I'm fired :)");

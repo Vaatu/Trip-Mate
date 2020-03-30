@@ -13,8 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vaatu.tripmate.R;
-import com.vaatu.tripmate.ui.home.home.RecAdaptor;
-import com.vaatu.tripmate.utils.CardviewModel;
+import com.vaatu.tripmate.utils.TripModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +33,12 @@ public class HistoryFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.history_fragment, container, false);
-        List<CardviewModel> mylist = new ArrayList<CardviewModel>();
-        CardviewModel c1= new CardviewModel("smouha","loran","1/2/2020","9:30","WorkTrip","Canceled");
-        CardviewModel c2= new CardviewModel("smouha","loran","1/2/2020","9:30","WorkTrip","Canceled");
+        List<TripModel> mylist = new ArrayList<TripModel>();
+        TripModel c1= new TripModel("smouha","loran","1/2/2020","9:30","WorkTrip","Canceled");
+        TripModel c2= new TripModel("smouha","loran","1/2/2020","9:30","WorkTrip","Canceled");
 
-        CardviewModel c3= new CardviewModel("Loran","loran","2/1/2020","5:30","HomeTrip","Done");
-        CardviewModel c4= new CardviewModel("Loran","loran","2/1/2020","5:30","HomeTrip","Done");
+        TripModel c3= new TripModel("Loran","loran","2/1/2020","5:30","HomeTrip","Done");
+        TripModel c4= new TripModel("Loran","loran","2/1/2020","5:30","HomeTrip","Done");
         mylist.add(c1);
         mylist.add(c2);
         mylist.add(c3);
