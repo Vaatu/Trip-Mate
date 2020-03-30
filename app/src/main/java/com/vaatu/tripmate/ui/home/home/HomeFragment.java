@@ -1,6 +1,7 @@
 package com.vaatu.tripmate.ui.home.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.utils.CardviewModel;
@@ -17,34 +25,61 @@ import com.vaatu.tripmate.utils.CardviewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.vaatu.tripmate.ui.home.R;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private DatabaseReference mTripsRef;
+    private List<CardviewModel> tripDetails = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        mTripsRef = FirebaseDatabase.getInstance().getReference().child("trip-mate").child(currentUser.getUid()).child("trips");
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        FirebaseDB fireb =  FirebaseDB.getInstance();
-
-
-        List<CardviewModel> mylist = new ArrayList<CardviewModel>();
-        CardviewModel c1= new CardviewModel("smouha","loran","1/2/2020","9:30","WorkTrip","");
-
-        CardviewModel c= new CardviewModel("Loran","loran","2/1/2020","5:30","HomeTrip","");
-        mylist.add(c);
-        mylist.add(c1);
-        fireb.saveTripToDatabase(mylist.get(0));
-
 
         RecyclerView rev = root.findViewById(R.id.recycler);
-        RecAdaptor adpater = new RecAdaptor(mylist, getActivity());
+        RecAdaptor adpater = new RecAdaptor(tripDetails, getActivity());
         rev.setLayoutManager(new LinearLayoutManager(getContext()));
         rev.setAdapter(adpater);
 
-       // getSupportActionBar().setTitle("Home");
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Log.i("DataSnapshot Loop" ,"##" );
+                tripDetails.clear();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    tripDetails.add(ds.getValue(CardviewModel.class));
+                }
+                adpater.notifyDataSetChanged();
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("Database", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mTripsRef.addValueEventListener(postListener);
+
+//        List<CardviewModel> mylist = new ArrayList<CardviewModel>();
+//        CardviewModel c1 = new CardviewModel("smouha", "loran", "1/2/2020", "9:30", "WorkTrip", "");
+//
+//        CardviewModel c = new CardviewModel("Loran", "loran", "2/1/2020", "5:30", "HomeTrip", "");
+//        mylist.add(c);
+//        mylist.add(c1);
+//        fireb.saveTripToDatabase(mylist.get(0));
+
+
+        // getSupportActionBar().setTitle("Home");
 //        homeViewModel =
 //                ViewModelProviders.of(this).get(HomeViewModel.class);
 //        View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -57,7 +92,6 @@ public class HomeFragment extends Fragment {
 //        });
         return root;
     }
-
 
 
 //    @Override

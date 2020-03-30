@@ -41,7 +41,7 @@ public class FirebaseDB {
     }
 
     public void saveTripToDatabase(CardviewModel cvm) {
-//myRef.push().getKey()
+
         myRef.child("trip-mate").child(currentUser.getUid()).child("trips").child(myRef.push().getKey()).setValue(cvm);
         Log.i("Firebase Database", "I'm fired :)");
 

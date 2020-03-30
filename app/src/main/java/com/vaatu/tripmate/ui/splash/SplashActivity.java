@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.ui.home.UpcomingTripsActivity;
+import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
 import com.vaatu.tripmate.ui.user.UserCycleActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,7 +26,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Main-Activity. */
-                Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
+//                Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
+                Intent mainIntent = new Intent(SplashActivity.this, AddBtnActivity.class);
+
                // Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
 
                 SplashActivity.this.startActivity(mainIntent);
