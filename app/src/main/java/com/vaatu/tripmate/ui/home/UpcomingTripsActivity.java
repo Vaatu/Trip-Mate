@@ -83,6 +83,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+                    //TODO       ProgressBar
                 if (menuItem.getItemId() == R.id.nav_sync) {
                     Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
                     navController.navigate(R.id.action_nav_home_to_nav_sync);
@@ -95,7 +96,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
                     signOut();
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                     Intent mainIntent = new Intent(UpcomingTripsActivity.this, UserCycleActivity.class);
+                    Intent mainIntent = new Intent(UpcomingTripsActivity.this, UserCycleActivity.class);
                     startActivity(mainIntent);
                     finish();
 
