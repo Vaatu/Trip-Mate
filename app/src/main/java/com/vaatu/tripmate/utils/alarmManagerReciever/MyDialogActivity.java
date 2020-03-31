@@ -101,7 +101,7 @@ public class MyDialogActivity extends Activity {
         service.putExtra(RECEIVED_TRIP_SEND_SERIAL, tm);
         service.putExtra("test","MEMO");
         startService(service);
-        bindService(service,mServiceConnection,BIND_ADJUST_WITH_ACTIVITY);
+//        bindService(service,mServiceConnection,BIND_ADJUST_WITH_ACTIVITY);
     }
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
