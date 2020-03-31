@@ -52,6 +52,7 @@
     <string name="add_trip">Add Trip</string>
     <string name="start_point">Start Point</string>
     <string name="destination">Destination</string>
+    <string name="des">"Enter Destination "</string>
 
     <string-array name="times_array">
         <item>Don\'t Repeat</item>
