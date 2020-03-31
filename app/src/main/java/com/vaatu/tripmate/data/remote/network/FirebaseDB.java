@@ -47,9 +47,10 @@ public class FirebaseDB {
 
     }
 
-    public void saveUserToFirebase(String email) {
+    public void saveUserToFirebase(String email, String name) {
 
         myRef.child("trip-mate").child(currentUser.getUid()).child("userinfo").child("email").setValue(email);
+        myRef.child("trip-mate").child(currentUser.getUid()).child("userinfo").child("name").setValue(name);
 
     }
 }

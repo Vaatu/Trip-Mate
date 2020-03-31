@@ -31,6 +31,8 @@ import static android.content.ContentValues.TAG;
 
 public class SignUp extends Fragment {
 
+    public static final String username = "username";
+
     EditText emailField;
     EditText passField;
     EditText passField2;
@@ -43,6 +45,7 @@ public class SignUp extends Fragment {
     Button btnSignUp;
 
     TextView mStatusTextView;
+
 
     @Override
     public View onCreateView(
@@ -131,6 +134,7 @@ public class SignUp extends Fragment {
         if (user != null) {
 
             Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
+            mainIntent.putExtra("username", nameField.getText().toString());
             startActivity(mainIntent);
             getActivity().finish();
 

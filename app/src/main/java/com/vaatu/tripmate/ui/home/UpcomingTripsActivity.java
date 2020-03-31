@@ -50,7 +50,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         fbdb = FirebaseDB.getInstance();
-        fbdb.saveUserToFirebase(currentUser.getEmail());
+        fbdb.saveUserToFirebase(currentUser.getEmail(), currentUser.);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
