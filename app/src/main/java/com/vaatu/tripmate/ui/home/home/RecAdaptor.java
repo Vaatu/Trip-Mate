@@ -96,8 +96,6 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                             //Canceled List add the deleted items
                             canceledlist.add(deleteditem);
 
-
-
                         }
                         return false;
                     }
