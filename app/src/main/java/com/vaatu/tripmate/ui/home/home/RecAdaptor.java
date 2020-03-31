@@ -87,14 +87,14 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                             Toast.makeText(cntxt, "Cancel Trip : " + position, Toast.LENGTH_LONG).show();
 
                             TripModel deleteditem;
-                            deleteditem = list.get(position);
-                            list.remove(deleteditem);
+//                            deleteditem = list.get(position);
+//                            list.remove(deleteditem);
                             list.get(position).setStatus("Canceled!");
                             mFirebaseDB.addTripToHistory(list.get(position));
                             mFirebaseDB.removeFromUpcoming(list.get(position));
                             notifyDataSetChanged();
                             //Canceled List add the deleted items
-                            canceledlist.add(deleteditem);
+//                            canceledlist.add(deleteditem);
 
                         }
                         return false;
