@@ -1,7 +1,10 @@
 package com.vaatu.tripmate.ui.home.addButtonActivity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +34,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.ui.home.UpcomingTripsActivity;
+import com.vaatu.tripmate.utils.AlarmManagerReciever.AlarmEventReciever;
 import com.vaatu.tripmate.utils.TripModel;
 import com.vaatu.tripmate.utils.dateTimePicker.DatePickerFragment;
 import com.vaatu.tripmate.utils.dateTimePicker.TimePickerFragment;
@@ -49,8 +53,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AddBtnActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
-    private static final String LOG_TAG = "HERE Auto Suggest";
-
+    public static final String NEW_TRIP_OBJECT = "NEW_TRIP_OBJECT";
+    public static final String NEW_TRIP_OBJ_SERIAL = "NEW_TRIP_OBJECT";
 
     @BindView(R.id.add_trip_btn)
     Button addTripBtn;
@@ -84,8 +88,13 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     ArrayAdapter<CharSequence> adapterTripRepeatSpin;
     List<TextInputLayout> mNotesTextInputLayout = new ArrayList<>();
     String selectedStartPlace = "";
-    String selectedEndPlace = "" ;
+    String selectedEndPlace = "";
     List<String> notesList = new ArrayList<>();
+
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
+
+    Calendar mCalendar;
 
     @Override
 
@@ -93,6 +102,8 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_btn);
         ButterKnife.bind(this);
+        mCalendar = Calendar.getInstance();
+
         //Auto Complete Google
         setUpAutoComplete();
 
@@ -109,7 +120,7 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         if (!Places.isInitialized()) {
             // @TODO Get Places API key
             Places.initialize(getApplicationContext(), "AIzaSyDbQxlvW4q0t1rhRHicRHVDzWbDP8y1Hlc");
-             }
+        }
         //Init Frags
         placeStartPointAutoComplete = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.start_autoComplete_Frag);
@@ -163,16 +174,18 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
                     tripNameTextField.setError("Cannot be blank!");
                 } else if (dateTextField.getText().toString().equals("")) {
                     dateTextField.setError("Cannot be blank!");
-                }else if (timeTextField.getText().toString().equals("")){
+                } else if (timeTextField.getText().toString().equals("")) {
                     timeTextField.setError("Cannot be blank!");
-                }else{
-                    TripModel newTrip = new TripModel(selectedStartPlace,selectedEndPlace,dateTextField.getText().toString(),
-                            timeTextField.getText().toString(),tripNameTextField.getEditText().getText().toString(),null,notesList);
+                } else {
+                    TripModel newTrip = new TripModel(selectedStartPlace, selectedEndPlace, dateTextField.getText().toString(),
+                            timeTextField.getText().toString(), tripNameTextField.getEditText().getText().toString(), null, notesList, mCalendar.getTime().toString());
 
-                    Intent i = new Intent(this,UpcomingTripsActivity.class);
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("NEWTRIP",newTrip);
+                    resultIntent.putExtra("NEWTRIP", newTrip);
+                    startAlarm(newTrip);
                     setResult(Activity.RESULT_OK, resultIntent);
+
+
                     finish();
                 }
 
@@ -200,6 +213,9 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         Log.i("Date Time Picker", currentDateString);
         dateTextField.setText(currentDateString);
+        mCalendar.set(Calendar.YEAR, i);
+        mCalendar.set(Calendar.MONTH, i1); // Month is zero-based
+        mCalendar.set(Calendar.DAY_OF_MONTH, i2);
 
     }
 
@@ -231,6 +247,15 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         String aTime = new StringBuilder().append(hour).append(':')
                 .append(min).append(" ").append(timeSet).toString();
         timeTextField.setText(aTime);
+
+        // Set calendat item
+        mCalendar = Calendar.getInstance();
+
+
+        mCalendar.set(Calendar.HOUR_OF_DAY, i);
+        mCalendar.set(Calendar.MINUTE, i1);
+        mCalendar.set(Calendar.SECOND, 0);
+
     }
 
     private void spinnerInit() {
@@ -290,5 +315,37 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         currentParent.addView(linearLayout);
         increasedID++;
 
+    }
+
+    private void startAlarm(TripModel tripModel) {
+
+        alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Log.i("time", mCalendar.getTime().toString());
+        long alarmTime = mCalendar.getTimeInMillis();
+
+        Intent intent = new Intent(this, AlarmEventReciever.class);
+        intent.putExtra(NEW_TRIP_OBJECT, tripModel);
+
+        Bundle b = new Bundle();
+        b.putSerializable(AddBtnActivity.NEW_TRIP_OBJ_SERIAL,tripModel);
+        intent.putExtra(NEW_TRIP_OBJECT, b);
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent);
+    }
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, 100, pendingIntent);
+//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, 100, pendingIntent);
+//        } else {
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, 100, pendingIntent);
+//        }
+
+
+    private void cancelAlarm() {
+        alarmManager.cancel(pendingIntent);
+        Toast.makeText(getApplicationContext(), "Alarm Cancelled", Toast.LENGTH_LONG).show();
     }
 }

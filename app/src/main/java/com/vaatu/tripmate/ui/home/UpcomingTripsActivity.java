@@ -56,8 +56,8 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
 //                Intent addButtonActivity = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
 //                startActivity(addButtonActivity);
                 Intent i = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
