@@ -17,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.utils.TripModel;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
     List<TripModel> list = new ArrayList<>();
     List<TripModel> canceledlist =  new ArrayList<>();
     Context cntxt;
+    FirebaseDB mFirebaseDB;
 
 
     public RecAdaptor(List<TripModel> list, Context cntxt) {
@@ -39,7 +41,9 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflate = LayoutInflater.from(parent.getContext());
         View v = inflate.inflate(R.layout.custom_card_row, parent, false);
+        mFirebaseDB = FirebaseDB.getInstance();
         ViewHolder vh = new ViewHolder(v);
+
         return vh;
     }
 
@@ -63,7 +67,10 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                         //handle item selection from the card pop menu
                         if (item.getItemId() == R.id.starttrip) {
 
-                            Uri gmmIntentUri = Uri.parse("google.navigation:q=Smouha+Alexandria");
+                            list.get(position).setStatus("Done!");
+                            mFirebaseDB.addTripToHistory(list.get(position));
+                            mFirebaseDB.removeFromUpcoming(list.get(position));
+                            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + list.get(position).getEndloc());
                             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                             mapIntent.setPackage("com.google.android.apps.maps");
                             cntxt.startActivity(mapIntent);
@@ -82,6 +89,9 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                             TripModel deleteditem;
                             deleteditem = list.get(position);
                             list.remove(deleteditem);
+                            list.get(position).setStatus("Canceled!");
+                            mFirebaseDB.addTripToHistory(list.get(position));
+                            mFirebaseDB.removeFromUpcoming(list.get(position));
                             notifyDataSetChanged();
                             //Canceled List add the deleted items
                             canceledlist.add(deleteditem);

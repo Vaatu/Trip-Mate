@@ -43,10 +43,13 @@ import android.app.DatePickerDialog;
 
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -320,8 +323,16 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     private void startAlarm(TripModel tripModel) {
 
         alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        Log.i("time", mCalendar.getTime().toString());
-        long alarmTime = mCalendar.getTimeInMillis();
+//        Log.i("time", mCalendar.getTime().toString());
+//        long alarmTime = mCalendar.getTimeInMillis();
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+        try {
+            cal.setTime(sdf.parse(tripModel.dateTime));// all done
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         Intent intent = new Intent(this, AlarmEventReciever.class);
         intent.putExtra(NEW_TRIP_OBJECT, tripModel);
@@ -332,7 +343,7 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
 
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent);
+        alarmManager.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent);
     }
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
