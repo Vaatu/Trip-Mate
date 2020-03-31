@@ -26,6 +26,8 @@ import static com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever.R
 
 public class MyDialogActivity extends Activity {
     DialognotificationService mService;
+    AlertDialog alertDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class MyDialogActivity extends Activity {
                         }
                     });
 
-            AlertDialog alertDialog = Builder.create();
+            alertDialog = Builder.create();
             alertDialog.show();
 
         } else {
@@ -102,6 +104,7 @@ public class MyDialogActivity extends Activity {
         service.putExtra("test","MEMO");
         startService(service);
         bindService(service,mServiceConnection,BIND_ADJUST_WITH_ACTIVITY);
+        alertDialog.dismiss();
     }
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
