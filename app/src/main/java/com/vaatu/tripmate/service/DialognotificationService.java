@@ -68,7 +68,7 @@ public class DialognotificationService extends Service {
 
     private void createNotification() {
         Intent notificationIntent = new Intent(this, MyDialogActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, notificationIntent,0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, MyDialogActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
         //TODO GET TRIP ! to show trip name
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
