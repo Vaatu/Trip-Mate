@@ -21,6 +21,7 @@ import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
 import com.vaatu.tripmate.ui.splash.SplashActivity;
+import com.vaatu.tripmate.ui.user.SignUp;
 import com.vaatu.tripmate.ui.user.UserCycleActivity;
 import com.vaatu.tripmate.utils.TripModel;
 
@@ -44,13 +45,16 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upcoming_trips);
+        Intent i = getIntent();
+        String username = i.getStringExtra(SignUp.username);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         fbdb = FirebaseDB.getInstance();
-        fbdb.saveUserToFirebase(currentUser.getEmail(), currentUser.);
+        fbdb.saveUserToFirebase(currentUser.getEmail(), username);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
