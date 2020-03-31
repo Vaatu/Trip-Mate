@@ -40,6 +40,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     FirebaseDB fbdb;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         fbdb = FirebaseDB.getInstance();
         fbdb.saveUserToFirebase(currentUser.getEmail(), username);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +132,12 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fab.hide();
+        fab.show();
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

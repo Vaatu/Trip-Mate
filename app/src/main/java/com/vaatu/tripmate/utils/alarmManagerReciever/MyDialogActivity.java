@@ -1,12 +1,15 @@
-package com.vaatu.tripmate.utils.AlarmManagerReciever;
+package com.vaatu.tripmate.utils.alarmManagerReciever;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -15,11 +18,14 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
+import com.vaatu.tripmate.service.DialognotificationService;
 import com.vaatu.tripmate.utils.TripModel;
 
+import static com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever.RECEIVED_TRIP;
+import static com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever.RECEIVED_TRIP_SEND_SERIAL;
+
 public class MyDialogActivity extends Activity {
-
-
+    DialognotificationService mService;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +33,13 @@ public class MyDialogActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_my_dialog);
         FirebaseDB firebaseDB = FirebaseDB.getInstance();
-        Intent i = getIntent();
-        Bundle b = i.getBundleExtra(AlarmEventReciever.RECEIVED_TRIP);
 
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
 
-        TripModel tm = (TripModel) b.getSerializable(AlarmEventReciever.RECEIVED_TRIP_SEND_SERIAL);
+        Intent i = getIntent();
+        Bundle b = i.getBundleExtra(RECEIVED_TRIP);
+        TripModel tm = (TripModel) b.getSerializable(RECEIVED_TRIP_SEND_SERIAL);
         if (tm != null) {
             startAlarmRingTone(r);
             AlertDialog.Builder Builder = new AlertDialog.Builder(this)
@@ -45,10 +51,12 @@ public class MyDialogActivity extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(MyDialogActivity.this, "Trip Snooze", Toast.LENGTH_SHORT).show();
                             stopAlarmRingTone(r);
-                            MyDialogActivity.this.finish();
+                            startDialogService(tm);
+
+                            finish();
                         }
                     })
-                    .setPositiveButton("Start", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Start Trip", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Toast.makeText(MyDialogActivity.this, "Trip Will Start", Toast.LENGTH_SHORT).show();
@@ -62,7 +70,7 @@ public class MyDialogActivity extends Activity {
                             stopAlarmRingTone(r);
 
                             startActivity(mapIntent);
-                            MyDialogActivity.this.finish();
+                            finish();
                         }
                     }).setNeutralButton("Cancel Trip", new DialogInterface.OnClickListener() {
                         @Override
@@ -74,7 +82,7 @@ public class MyDialogActivity extends Activity {
 
                             stopAlarmRingTone(r);
 
-                            MyDialogActivity.this.finish();
+                            finish();
                         }
                     });
 
@@ -86,10 +94,33 @@ public class MyDialogActivity extends Activity {
         }
 
     }
-    public void startAlarmRingTone(Ringtone r){
+
+    public void startDialogService(TripModel tm) {
+        Intent service = new Intent(this, DialognotificationService.class);
+
+        service.putExtra(RECEIVED_TRIP_SEND_SERIAL, tm);
+        service.putExtra("test","MEMO");
+        startService(service);
+        bindService(service,mServiceConnection,BIND_ADJUST_WITH_ACTIVITY);
+    }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mService = ((DialognotificationService.MyBinder) iBinder).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
+
+    public void startAlarmRingTone(Ringtone r) {
         r.play();
     }
-    public void stopAlarmRingTone(Ringtone r){
+
+    public void stopAlarmRingTone(Ringtone r) {
         r.stop();
     }
 }

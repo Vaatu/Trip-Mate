@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
                 Log.w("Database", "loadPost:onCancelled", databaseError.toException());
                 // ...
             }
+
         };
         mTripsRef.addValueEventListener(postListener);
 

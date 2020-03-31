@@ -1,4 +1,4 @@
-package com.vaatu.tripmate.utils.AlarmManagerReciever;
+package com.vaatu.tripmate.utils.alarmManagerReciever;
 
 import android.app.Service;
 import android.content.Intent;

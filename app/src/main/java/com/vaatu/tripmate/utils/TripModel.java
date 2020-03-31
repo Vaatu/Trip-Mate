@@ -1,5 +1,8 @@
 package com.vaatu.tripmate.utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -114,4 +117,5 @@ public class TripModel implements Serializable {
     public void setTripname(String tripname) {
         this.tripname = tripname;
     }
+
 }

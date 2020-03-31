@@ -84,7 +84,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
                         }
                         if (item.getItemId() == R.id.cancel) {
-                            Toast.makeText(cntxt, "Cancel Trip", Toast.LENGTH_LONG).show();
+                            Toast.makeText(cntxt, "Cancel Trip : " + position, Toast.LENGTH_LONG).show();
 
                             TripModel deleteditem;
                             deleteditem = list.get(position);
