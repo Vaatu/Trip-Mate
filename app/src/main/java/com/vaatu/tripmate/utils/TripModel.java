@@ -4,13 +4,23 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 public class TripModel implements Serializable {
 
 
-    public String startloc,endloc,date,time,status,tripname;
+    public String startloc,endloc,date,time,status,tripname,dateTime;
     private List<String> notes = new ArrayList<>();
     //@TODO add lat Long
+
+    public String  getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String  dateTime) {
+        this.dateTime = dateTime;
+    }
 
     public List<String> getNotes() {
         return notes;
@@ -20,6 +30,17 @@ public class TripModel implements Serializable {
         this.notes = notes;
     }
 
+    public TripModel(String startloc, String endloc, String date, String time, String tripname, String status, List<String> notes,String dateTime) {
+        this.startloc = startloc;
+        this.endloc = endloc;
+        this.date = date;
+        this.time = time;
+        this.status = status;
+        this.tripname = tripname;
+        this.status = status;
+        this.notes = notes;
+        this.dateTime = dateTime;
+    }
     public TripModel(String startloc, String endloc, String date, String time, String tripname, String status, List<String> notes) {
         this.startloc = startloc;
         this.endloc = endloc;
@@ -29,6 +50,7 @@ public class TripModel implements Serializable {
         this.tripname = tripname;
         this.status = status;
         this.notes = notes;
+
     }
     public TripModel(String startloc, String endloc, String date, String time, String tripname, String status) {
         this.startloc = startloc;
