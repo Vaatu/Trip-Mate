@@ -55,6 +55,18 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
         holder.time.setText(list.get(position).time);
         holder.end.setText(list.get(position).endloc);
+        holder.startnowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.get(position).setStatus("Done!");
+                mFirebaseDB.addTripToHistory(list.get(position));
+                mFirebaseDB.removeFromUpcoming(list.get(position));
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + list.get(position).getEndloc());
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                cntxt.startActivity(mapIntent);
+            }
+        });
         holder.popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,22 +77,8 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         //handle item selection from the card pop menu
-                        if (item.getItemId() == R.id.starttrip) {
-
-                            list.get(position).setStatus("Done!");
-                            mFirebaseDB.addTripToHistory(list.get(position));
-                            mFirebaseDB.removeFromUpcoming(list.get(position));
-                            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + list.get(position).getEndloc());
-                            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                            mapIntent.setPackage("com.google.android.apps.maps");
-                            cntxt.startActivity(mapIntent);
-                        }
-                        if (item.getItemId() == R.id.edittrip) {
-                            Toast.makeText(cntxt, "edit Trip", Toast.LENGTH_LONG).show();
-
-                        }
                         if (item.getItemId() == R.id.editnote) {
-                            Toast.makeText(cntxt, "Edit note", Toast.LENGTH_LONG).show();
+                            Toast.makeText(cntxt, "View note", Toast.LENGTH_LONG).show();
 
                         }
                         if (item.getItemId() == R.id.cancel) {
@@ -115,12 +113,12 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
         CardView cardview;
         TextView start, end, date, time, name;
-        Button popup;
+        Button popup , startnowBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            // status = itemView.findViewById(R.id.status_id);
+            startnowBtn = itemView.findViewById(R.id.startnow);
             start = itemView.findViewById(R.id.start_loc_id);
             end = itemView.findViewById(R.id.end_loc_id);
             time = itemView.findViewById(R.id.Time_id);

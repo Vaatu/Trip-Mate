@@ -181,7 +181,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/textButton"
+                android:id="@+id/startnow"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="48dp"
                 android:layout_height="wrap_content"

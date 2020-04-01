@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.vaatu.tripmate.ui.home.home.HomeFragment"
-        android:label="Home"
+        android:label="UpComing Trips"
         tools:layout="@layout/fragment_home">
 
         <action

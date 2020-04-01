@@ -26,6 +26,7 @@
     <string name="tripname">TripName</string>
     <string name="from">  From</string>
     <string name="to">"To"</string>
+
     <string name="title_activity_homepage">homepageActivity</string>
 
     <string name="email">Email</string>
@@ -44,6 +45,7 @@
     <string name="edit_notes">Edit Notes</string>
     <string name="edit_trip">Edit Trip</string>
     <string name="cancel_trip">Cancel Trip</string>
+    <string name="delete_trip">Delete Trip</string>
     <string name="trip_name">Trip name</string>
     <string name="search_destination">Search Destination</string>
     <string name="date">Date</string>

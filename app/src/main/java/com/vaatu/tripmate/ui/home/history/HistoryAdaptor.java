@@ -2,15 +2,20 @@ package com.vaatu.tripmate.ui.home.history;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.utils.TripModel;
 
 import java.util.ArrayList;
@@ -19,8 +24,9 @@ import java.util.List;
 public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHolder> {
 
     List<TripModel> list = new ArrayList<>();
-   // List<CardviewModel> canceledlist =  new ArrayList<>();
+    // List<CardviewModel> canceledlist =  new ArrayList<>();
     Context cntxt;
+    FirebaseDB mFirebaseDB;
 
 
     public HistoryAdaptor(List<TripModel> list, Context cntxt) {
@@ -45,6 +51,31 @@ public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHold
         holder.status.setText(list.get(position).status);
         holder.time.setText(list.get(position).time);
         holder.end.setText(list.get(position).endloc);
+        holder.popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(cntxt, holder.popup);
+                popupMenu.inflate(R.menu.history_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        //handle item selection from the card pop menu
+
+                        if (item.getItemId() == R.id.delete) {
+
+                            Toast.makeText(cntxt, "Delete Trip", Toast.LENGTH_LONG).show();
+                          //  mFirebaseDB.removeTripFromHistory(list.get(position));
+                            //notifyDataSetChanged();
+                        }
+
+                        return false;
+                    }
+                });
+
+                popupMenu.show();
+
+            }
+        });
     }
 
     @Override
@@ -53,10 +84,10 @@ public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
+        Button popup;
         CardView cardview;
-        TextView start, end, date, time, name,status;
-       // Button popup;
+        TextView start, end, date, time, name, status;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,7 +98,8 @@ public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHold
             time = itemView.findViewById(R.id.Time_id);
             name = itemView.findViewById(R.id.trip_name_id);
             date = itemView.findViewById(R.id.Date_id);
-            status =itemView.findViewById(R.id.status);
+            status = itemView.findViewById(R.id.status);
+            popup = itemView.findViewById(R.id.pop_menu_id);
 
         }
     }

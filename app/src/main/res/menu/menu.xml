@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/starttrip"
 
-        android:title="@string/start_trip">
 
-    </item>
-
-    <item
-        android:id="@+id/edittrip"
-        android:title="@string/edit_trip">
-
-    </item>
 
     <item android:id="@+id/editnote"
-        android:title="Edit Notes">
+        android:title="View Notes">
 
     </item>
 

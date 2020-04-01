@@ -1,183 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_gravity="center|top"
     android:background="@color/grey">
 
     <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
-        android:layout_height="262dp"
-
-        android:layout_margin="30dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="30dp"
+        android:layout_margin="8dp"
+        app:cardMaxElevation="5dp">
 
-        app:cardMaxElevation="20dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/trip_name_id"
-                android:layout_width="321dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="3dp"
 
-                android:text="TextView" />
-
-
-            <TextView
-                android:id="@+id/status"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-                android:text="TextView" />
+                android:weightSum="2"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/trip_name_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    android:layout_weight="2"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <Button
+                    android:id="@+id/pop_menu_id"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/ic_more_vert_black_24dp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+
 
             <View
-                android:layout_width="309dp"
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginHorizontal="8dp"
                 android:background="@color/grey1" />
 
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="27dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginHorizontal="8dp"
+                android:weightSum="4"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/start_pin_id"
-                    android:layout_width="38dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight=".5"
                     app:srcCompat="@drawable/location" />
 
                 <TextView
-                    android:id="@+id/from_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/from" />
+                    android:id="@+id/start_loc_id"
+                    android:layout_width="0dp"
+                    android:maxLines="1"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/from"
+                    />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/start_loc_id"
-                android:layout_width="320dp"
-                android:layout_height="23dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"></TextView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="@color/grey1" />
 
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="27dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="1dp"
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:weightSum="4"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/end_pin_id"
-                    android:layout_width="1dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight=".5"
                     app:srcCompat="@drawable/location" />
 
                 <TextView
-                    android:id="@+id/to_id"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/to" />
+                    android:id="@+id/end_loc_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:maxLines="1"
+                    android:text="@string/to"
+                    />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/end_loc_id"
-                android:layout_width="320dp"
-                android:layout_height="21dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-                android:text="TextView" />
+
 
             <View
-                android:layout_width="309dp"
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/grey1" />
 
             <LinearLayout
-                android:layout_width="322dp"
-                android:layout_height="65dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
+                android:weightSum="8"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="121dp"
-                    android:layout_height="66dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="63dp"
-                        android:layout_height="26dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/time" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_schedule_24px" />
 
                     <TextView
                         android:id="@+id/Time_id"
-                        android:layout_width="91dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="4"
+                        android:layout_gravity="center"
                         android:text="TextView" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="121dp"
-                    android:layout_height="67dp"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imageView4"
-                        android:layout_width="64dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        app:srcCompat="@drawable/date" />
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_date_range_24px" />
 
                     <TextView
                         android:id="@+id/Date_id"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:maxLines="2"
+
                         android:text="TextView" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/note_id"
-                android:layout_width="51dp"
-                android:layout_height="34dp"
-                android:layout_marginLeft="260dp"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/ic_mail_outline_black_24dp" />
+
 
 
         </LinearLayout>
