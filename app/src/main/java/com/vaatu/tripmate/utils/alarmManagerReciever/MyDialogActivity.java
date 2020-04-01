@@ -1,15 +1,19 @@
 package com.vaatu.tripmate.utils.alarmManagerReciever;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -19,6 +23,8 @@ import androidx.appcompat.app.AlertDialog;
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.service.DialognotificationService;
+import com.vaatu.tripmate.service.FloatingWindowService;
+import com.vaatu.tripmate.ui.splash.SplashActivity;
 import com.vaatu.tripmate.utils.TripModel;
 
 import static com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever.RECEIVED_TRIP;
@@ -27,6 +33,8 @@ import static com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever.R
 public class MyDialogActivity extends Activity {
     DialognotificationService mService;
     AlertDialog alertDialog;
+    android.app.AlertDialog alert;
+    boolean started = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,10 +76,14 @@ public class MyDialogActivity extends Activity {
                             Uri gmmIntentUri = Uri.parse("google.navigation:q=" + tm.getEndloc());
                             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                             mapIntent.setPackage("com.google.android.apps.maps");
-
                             stopAlarmRingTone(r);
-
                             startActivity(mapIntent);
+                            start_stop();
+
+                            if (isMyServiceRunning(FloatingWindowService.class)){
+                                started = true;
+                            }
+
                             finish();
                         }
                     }).setNeutralButton("Cancel Trip", new DialogInterface.OnClickListener() {
@@ -126,4 +138,82 @@ public class MyDialogActivity extends Activity {
     public void stopAlarmRingTone(Ringtone r) {
         r.stop();
     }
+
+
+    public void start_stop() {
+        if (checkPermission()) {
+            if (started) {
+                Intent i = new Intent(new Intent(MyDialogActivity.this, FloatingWindowService.class));
+                i.putExtra("test", "test");
+                stopService(i);
+                // start_stop.setText("Start");
+                started = false;
+            } else {
+                startService(new Intent(MyDialogActivity.this, FloatingWindowService.class));
+                //start_stop.setText("Stop");
+                started = true;
+
+            }
+        }else {
+            reqPermission();
+        }
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_OK) {
+            if (checkPermission()) {
+                start_stop();
+            } else {
+                reqPermission();
+            }
+        }
+    }
+
+
+    private boolean checkPermission() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                reqPermission();
+                return false;
+            }
+            else {
+                return true;
+            }
+        }else{
+            return true;
+        }
+
+    }
+
+    private void reqPermission(){
+        final android.app.AlertDialog.Builder alertBuilder = new android.app.AlertDialog.Builder(this);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setTitle("Screen overlay detected");
+        alertBuilder.setMessage("Enable 'Draw over other apps' in your system setting.");
+        alertBuilder.setPositiveButton("OPEN SETTINGS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent,RESULT_OK);
+            }
+        });
+        alert = alertBuilder.create();
+        alert.show();
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

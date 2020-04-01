@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +31,9 @@ public class FloatingWindowService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        String x = intent.getStringExtra("test");
+        Log.i("Bubble_Window",x);
+
         return null;
     }
 
@@ -105,7 +109,7 @@ public class FloatingWindowService extends Service {
             @Override
             public void onClick(View view) {
                 ListView listview = new ListView(FloatingWindowService.this);
-               String aarray[] = {"yasmine","ali","arabi"};
+                String aarray[] = {"yasmine","ali","arabi"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(FloatingWindowService.this,android.R.layout.simple_list_item_1,aarray);
                 listview.setAdapter(adapter);
                 ll.addView(listview);

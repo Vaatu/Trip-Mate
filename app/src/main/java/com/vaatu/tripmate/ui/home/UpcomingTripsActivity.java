@@ -1,9 +1,13 @@
 package com.vaatu.tripmate.ui.home;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 
 import android.view.MenuItem;
@@ -36,6 +40,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class UpcomingTripsActivity extends AppCompatActivity {
+    android.app.AlertDialog alert;
 
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth mAuth;
@@ -50,10 +55,11 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         Intent i = getIntent();
         String username = i.getStringExtra(SignUp.username);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        //Overlay Permission
+        checkPermission();
         fbdb = FirebaseDB.getInstance();
         fbdb.saveUserToFirebase(currentUser.getEmail(), username);
 
@@ -136,15 +142,12 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         fab.hide();
-        fab.setElevation(50);
         fab.show();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
-
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
 
@@ -165,12 +168,49 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                 }
                 break;
             }
+            case  RESULT_OK: {
+                if (checkPermission()) {
+
+                } else {
+                    reqPermission();
+                }
+            }
         }
     }
 
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    private boolean checkPermission() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                reqPermission();
+                return false;
+            }
+            else {
+                return true;
+            }
+        }else{
+            return true;
+        }
 
     }
 
+    private void reqPermission(){
+        final android.app.AlertDialog.Builder alertBuilder = new android.app.AlertDialog.Builder(this);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setTitle("Screen overlay detected");
+        alertBuilder.setMessage("Enable 'Draw over other apps' in your system setting.");
+        alertBuilder.setPositiveButton("OPEN SETTINGS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent,RESULT_OK);
+            }
+        });
+        alert = alertBuilder.create();
+        alert.show();
+    }
 }
