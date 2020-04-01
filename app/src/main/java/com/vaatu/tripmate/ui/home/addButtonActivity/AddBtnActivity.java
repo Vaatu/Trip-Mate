@@ -2,6 +2,7 @@ package com.vaatu.tripmate.ui.home.addButtonActivity;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,16 +30,14 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.vaatu.tripmate.R;
-import com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever;
 import com.vaatu.tripmate.utils.TripModel;
+import com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever;
 import com.vaatu.tripmate.utils.dateTimePicker.DatePickerFragment;
 import com.vaatu.tripmate.utils.dateTimePicker.TimePickerFragment;
-
-import android.app.DatePickerDialog;
-
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -95,14 +95,16 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     PendingIntent pendingIntent;
 
     Calendar mCalendar;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_btn);
         ButterKnife.bind(this);
         mCalendar = Calendar.getInstance();
+        hideProgressBar();
 
         //Auto Complete Google
         setUpAutoComplete();
@@ -165,6 +167,7 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_trip_btn:
+                showProgressBar();
                 //@TODO Copy this to another place !
                 for (TextInputLayout txtLayout : mNotesTextInputLayout) {
                     Log.i("Notes List", txtLayout.getEditText().getText().toString());
@@ -184,17 +187,16 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
                     resultIntent.putExtra("NEWTRIP", newTrip);
                     startAlarm(newTrip);
                     setResult(Activity.RESULT_OK, resultIntent);
-
-
+                    Toast.makeText(this, "Added Successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 }
-
                 break;
             case R.id.add_note_btn:
                 generateNoteLayout(view);
                 break;
             case R.id.dateTextField:
                 DialogFragment datepicker = new DatePickerFragment();
+
                 datepicker.show(getSupportFragmentManager(), "date");
 
                 break;
@@ -335,7 +337,7 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         intent.putExtra(NEW_TRIP_OBJECT, tripModel);
 
         Bundle b = new Bundle();
-        b.putSerializable(AddBtnActivity.NEW_TRIP_OBJ_SERIAL,tripModel);
+        b.putSerializable(AddBtnActivity.NEW_TRIP_OBJ_SERIAL, tripModel);
         intent.putExtra(NEW_TRIP_OBJECT, b);
 
 
@@ -343,17 +345,19 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
         alarmManager.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent);
     }
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, 100, pendingIntent);
-//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, 100, pendingIntent);
-//        } else {
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, 100, pendingIntent);
-//        }
-
 
     private void cancelAlarm() {
         alarmManager.cancel(pendingIntent);
         Toast.makeText(getApplicationContext(), "Alarm Cancelled", Toast.LENGTH_LONG).show();
     }
+
+
+    private void hideProgressBar(){
+        progressBar.setVisibility(View.VISIBLE);
+    }
+    private void showProgressBar(){
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+
 }
