@@ -70,7 +70,7 @@ public class MyDialogActivity extends Activity {
                             mapIntent.setPackage("com.google.android.apps.maps");
 
                             stopAlarmRingTone(r);
-
+                            alertDialog.dismiss();
                             startActivity(mapIntent);
                             finish();
                         }
@@ -83,6 +83,7 @@ public class MyDialogActivity extends Activity {
                             firebaseDB.removeFromUpcoming(tm);
 
                             stopAlarmRingTone(r);
+                            alertDialog.dismiss();
 
                             finish();
                         }
