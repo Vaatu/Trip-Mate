@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +39,7 @@ public class HistoryFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
 
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mTripsRef = FirebaseDatabase.getInstance().getReference().child("trip-mate").child(currentUser.getUid()).child("historytrips");
@@ -47,7 +49,13 @@ public class HistoryFragment extends Fragment {
 
         RecyclerView rev = root.findViewById(R.id.recycler);
        HistoryAdaptor adpater = new HistoryAdaptor(tripDetails, getActivity());
-        rev.setLayoutManager(new LinearLayoutManager(getContext()));
+
+       LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+       linearLayoutManager.setReverseLayout(true);
+       linearLayoutManager.setStackFromEnd(true);
+       rev.setLayoutManager(linearLayoutManager);
+
+        //rev.setLayoutManager(new LinearLayoutManager(getContext()));
         rev.setAdapter(adpater);
 
         ValueEventListener postListener = new ValueEventListener() {

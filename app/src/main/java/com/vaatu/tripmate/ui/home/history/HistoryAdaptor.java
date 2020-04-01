@@ -1,6 +1,8 @@
 package com.vaatu.tripmate.ui.home.history;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +51,13 @@ public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHold
         holder.start.setText(list.get(position).startloc);
         holder.name.setText(list.get(position).tripname);
         holder.date.setText(list.get(position).date);
+        Log.i("STATUS_COLOR",holder.status.getText().toString());
+        if(list.get(position).status.equals("Done!")){
+          holder.status.setTextColor(cntxt.getResources().getColor(R.color.green));
+        }
+        else{
+            holder.status.setTextColor(cntxt.getResources().getColor(R.color.red));
+        }
         holder.status.setText(list.get(position).status);
         holder.time.setText(list.get(position).time);
         holder.end.setText(list.get(position).endloc);
