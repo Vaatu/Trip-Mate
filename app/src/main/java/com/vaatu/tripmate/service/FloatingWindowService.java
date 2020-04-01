@@ -10,11 +10,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.protobuf.LazyStringArrayList;
 import com.vaatu.tripmate.R;
 
 public class FloatingWindowService extends Service {
@@ -51,9 +56,9 @@ public class FloatingWindowService extends Service {
         params.y = 0;
 
         ImageView openapp = new ImageView(this);
-        openapp.setImageResource(R.mipmap.ic_launcher_round);
+        openapp.setImageResource(R.drawable.bubble);
         ViewGroup.LayoutParams butnparams = new ViewGroup.LayoutParams(
-                150,150);
+                200,200);
         openapp.setLayoutParams(butnparams);
 
         ll.addView(openapp);
@@ -99,9 +104,13 @@ public class FloatingWindowService extends Service {
         openapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Intent home = new Intent(FloatingWindowService.this,MainActivity.class);
-               // home.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-               // startActivity(home);
+                ListView listview = new ListView(FloatingWindowService.this);
+               String aarray[] = {"yasmine","ali","arabi"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(FloatingWindowService.this,android.R.layout.simple_list_item_1,aarray);
+                listview.setAdapter(adapter);
+                ll.addView(listview);
+
+
             }
         });
 
