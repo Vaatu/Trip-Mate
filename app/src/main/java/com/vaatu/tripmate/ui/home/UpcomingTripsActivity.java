@@ -67,8 +67,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+
 //                Intent addButtonActivity = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
 //                startActivity(addButtonActivity);
                 Intent i = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
@@ -79,8 +78,6 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_sync, R.id.nav_logout)
                 .setDrawerLayout(drawer)
@@ -96,7 +93,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
 
                     //TODO       ProgressBar
                 if (menuItem.getItemId() == R.id.nav_sync) {
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(UpcomingTripsActivity.this, "", Toast.LENGTH_SHORT).show();
                     navController.navigate(R.id.action_nav_home_to_nav_sync);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     fab.hide();
@@ -104,7 +101,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                 } else if (menuItem.getItemId() == R.id.nav_logout) {
                     //Navigation here
                     fab.hide();
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpcomingTripsActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
                     signOut();
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     Intent mainIntent = new Intent(UpcomingTripsActivity.this, UserCycleActivity.class);
@@ -163,7 +160,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     if (newtrip != null) {
                         fbdb.saveTripToDatabase(newtrip);
                     } else {
-                        Toast.makeText(this, "Something wend wrong", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Something wend wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
