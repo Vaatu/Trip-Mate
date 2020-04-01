@@ -10,8 +10,8 @@ public class MyAlarmReciever extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
 
-            Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
-            context.startService(serviceIntent);
+          //  Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
+            //context.startService(serviceIntent);
         } else {
             Toast.makeText(context.getApplicationContext(), "Alarm Manager just ran", Toast.LENGTH_LONG).show();
         }

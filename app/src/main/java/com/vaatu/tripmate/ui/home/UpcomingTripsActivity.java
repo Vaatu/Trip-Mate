@@ -79,6 +79,8 @@ public class UpcomingTripsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+//                Intent addButtonActivity = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
+//                startActivity(addButtonActivity);
                 Intent i = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
                 startActivityForResult(i, 55);
             }
@@ -110,6 +112,8 @@ public class UpcomingTripsActivity extends AppCompatActivity {
 
                     //TODO    ProgressBar
                 if (menuItem.getItemId() == R.id.nav_sync) {
+                  //  Toast.makeText(UpcomingTripsActivity.this, "", Toast.LENGTH_SHORT).show();
+                    navController.navigate(R.id.action_nav_home_to_nav_sync);
 
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
@@ -193,7 +197,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     if (newtrip != null) {
                         fbdb.saveTripToDatabase(newtrip);
                     } else {
-                        Toast.makeText(this, "Something wend wrong", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Something wend wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
