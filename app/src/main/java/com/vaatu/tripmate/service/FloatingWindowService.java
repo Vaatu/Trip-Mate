@@ -56,7 +56,7 @@ public class FloatingWindowService extends Service {
         params.y = 0;
 
         ImageView openapp = new ImageView(this);
-        openapp.setImageResource(R.drawable.screenshot3);
+        openapp.setImageResource(R.drawable.bubble);
         ViewGroup.LayoutParams butnparams = new ViewGroup.LayoutParams(
                 200,200);
         openapp.setLayoutParams(butnparams);
