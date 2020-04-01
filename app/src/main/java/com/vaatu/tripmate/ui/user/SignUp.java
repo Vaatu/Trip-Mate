@@ -143,4 +143,13 @@ public class SignUp extends Fragment {
         }
 
     }
+
+    private void hideProgressBar(){
+//        mProgressBar.setVisibility(View.VISIBLE);
+
+    }
+    private void showProgressBar(){
+//        mProgressBar.setVisibility(View.INVISIBLE);
+
+    }
 }
