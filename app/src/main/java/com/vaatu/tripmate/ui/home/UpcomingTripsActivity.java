@@ -169,7 +169,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fab.hide();
+        
         fab.setLayoutParams(fabLayoutParams);
         fab.show();
 
