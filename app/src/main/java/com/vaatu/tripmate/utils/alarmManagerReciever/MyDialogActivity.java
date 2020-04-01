@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.gson.Gson;
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.service.DialognotificationService;
@@ -31,11 +33,12 @@ import static com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever.R
 import static com.vaatu.tripmate.utils.alarmManagerReciever.AlarmEventReciever.RECEIVED_TRIP_SEND_SERIAL;
 
 public class MyDialogActivity extends Activity {
+    public static final String DIALOG_TO_BUBBLE = "DIALOG_TO_BUBBLE";
     DialognotificationService mService;
     AlertDialog alertDialog;
     android.app.AlertDialog alert;
     boolean started = false;
-
+    FloatingWindowService fws;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +56,7 @@ public class MyDialogActivity extends Activity {
         if (tm != null) {
             startAlarmRingTone(r);
             AlertDialog.Builder Builder = new AlertDialog.Builder(this)
-                    .setMessage("Your Trip is now on...")
+                    .setMessage("Your Trip"+ tm.getTripname() +"is now on...")
                     .setTitle("Trip reminder")
                     .setIcon(android.R.drawable.ic_lock_idle_alarm)
                     .setNegativeButton("Snooze", new DialogInterface.OnClickListener() {
@@ -78,7 +81,7 @@ public class MyDialogActivity extends Activity {
                             mapIntent.setPackage("com.google.android.apps.maps");
                             stopAlarmRingTone(r);
                             startActivity(mapIntent);
-                            start_stop();
+                            start_stop(tm);
 
                             if (isMyServiceRunning(FloatingWindowService.class)){
                                 started = true;
@@ -140,25 +143,26 @@ public class MyDialogActivity extends Activity {
     }
 
 
-    public void start_stop() {
+    public void start_stop(TripModel tm) {
         if (checkPermission()) {
             if (started) {
-                Intent i = new Intent(new Intent(MyDialogActivity.this, FloatingWindowService.class));
-                i.putExtra("test", "test");
+                Intent i = new Intent(MyDialogActivity.this, FloatingWindowService.class);
+
+
                 stopService(i);
                 // start_stop.setText("Start");
                 started = false;
             } else {
-                startService(new Intent(MyDialogActivity.this, FloatingWindowService.class));
-                //start_stop.setText("Stop");
-                started = true;
+                Intent i = new Intent(MyDialogActivity.this, FloatingWindowService.class);
 
+                startService(i);
+                started = true;
             }
         }else {
             reqPermission();
         }
-
     }
+
 
 
     @Override
@@ -166,7 +170,6 @@ public class MyDialogActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_OK) {
             if (checkPermission()) {
-                start_stop();
             } else {
                 reqPermission();
             }
