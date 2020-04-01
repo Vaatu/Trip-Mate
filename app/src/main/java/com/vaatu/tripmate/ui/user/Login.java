@@ -73,6 +73,7 @@ public class Login extends Fragment {
         btnSignIn = view.findViewById(R.id.btnSignIn);
         btnGoogle = view.findViewById(R.id.google_btn);
         mProgressBar = view.findViewById(R.id.determinateBar);
+        mProgressBar.getIndeterminateDrawable().setColorFilter(0x3F51B5 ,android.graphics.PorterDuff.Mode.MULTIPLY);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 

@@ -2,6 +2,7 @@ package com.vaatu.tripmate.ui.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -48,7 +49,6 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upcoming_trips);
         Intent i = getIntent();
         String username = i.getStringExtra(SignUp.username);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -136,6 +136,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         fab.hide();
+        fab.setElevation(50);
         fab.show();
     }
 
