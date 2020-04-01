@@ -85,7 +85,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                     public boolean onMenuItemClick(MenuItem item) {
                         //handle item selection from the card pop menu
                         if (item.getItemId() == R.id.editnote) {
-                            Toast.makeText(cntxt, "View note", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(cntxt, "View note", Toast.LENGTH_LONG).show();
 
 
                             PopupMenu pop = new PopupMenu(cntxt, v);
