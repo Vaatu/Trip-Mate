@@ -35,7 +35,6 @@ WindowManager windowManager;
 
                 // Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
 
-
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }
