@@ -3,12 +3,18 @@ package com.vaatu.tripmate.ui.home.home;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +29,13 @@ import com.vaatu.tripmate.utils.TripModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
+
 public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
     List<TripModel> list = new ArrayList<>();
-    List<TripModel> canceledlist =  new ArrayList<>();
+    List<TripModel> canceledlist = new ArrayList<>();
     Context cntxt;
     FirebaseDB mFirebaseDB;
 
@@ -69,7 +78,6 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
         holder.popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 PopupMenu popupMenu = new PopupMenu(cntxt, holder.popup);
                 popupMenu.inflate(R.menu.menu);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -78,6 +86,15 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                         //handle item selection from the card pop menu
                         if (item.getItemId() == R.id.editnote) {
                             Toast.makeText(cntxt, "View note", Toast.LENGTH_LONG).show();
+
+
+                            PopupMenu pop = new PopupMenu(cntxt, v);
+                            pop.inflate(R.menu.notes_menu);
+                            for(String n : list.get(position).getNotes()){
+
+                                pop.getMenu().add(n);
+                            }
+                            pop.show();
 
                         }
                         if (item.getItemId() == R.id.cancel) {
@@ -99,8 +116,12 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                 });
 
                 popupMenu.show();
+
+
             }
         });
+
+
     }
 
     @Override
@@ -112,7 +133,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
         CardView cardview;
         TextView start, end, date, time, name;
-        Button popup , startnowBtn;
+        Button popup, startnowBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

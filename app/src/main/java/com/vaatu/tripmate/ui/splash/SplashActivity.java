@@ -44,14 +44,14 @@ public class SplashActivity extends AppCompatActivity {
 
         }
         start_stop();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
-//                SplashActivity.this.startActivity(mainIntent);
-//                SplashActivity.this.finish();
-//            }
-//        }, SPLASH_DISPLAY_LENGTH);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
+                SplashActivity.this.startActivity(mainIntent);
+                SplashActivity.this.finish();
+            }
+        }, SPLASH_DISPLAY_LENGTH);
 
     }
 
