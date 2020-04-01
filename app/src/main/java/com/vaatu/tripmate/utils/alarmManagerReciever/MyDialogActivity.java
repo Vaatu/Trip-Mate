@@ -70,8 +70,8 @@ public class MyDialogActivity extends Activity {
                             mapIntent.setPackage("com.google.android.apps.maps");
 
                             stopAlarmRingTone(r);
-                            alertDialog.dismiss();
                             startActivity(mapIntent);
+                            alertDialog.dismiss();
                             finish();
                         }
                     }).setNeutralButton("Cancel Trip", new DialogInterface.OnClickListener() {
@@ -84,7 +84,6 @@ public class MyDialogActivity extends Activity {
 
                             stopAlarmRingTone(r);
                             alertDialog.dismiss();
-
                             finish();
                         }
                     });
