@@ -95,7 +95,7 @@ public class MyDialogActivity extends Activity {
                             firebaseDB.removeFromUpcoming(tm);
 
                             stopAlarmRingTone(r);
-
+                            alertDialog.dismiss();
                             finish();
                         }
                     });
