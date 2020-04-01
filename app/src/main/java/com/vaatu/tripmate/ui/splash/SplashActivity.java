@@ -26,31 +26,12 @@ WindowManager windowManager;
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
 
-        windowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
-        //here is all the science of params
-        final WindowManager.LayoutParams myParams = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
-                WindowManager.LayoutParams.TYPE_TOAST
-                        | WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-                        | WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                PixelFormat.TRANSLUCENT
-        );
-
-
-        Intent intent = new Intent(SplashActivity.this,floating_icon.class);
-       intent.setAction(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-
-        SplashActivity.this.startActivity(intent);
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 /* Create an Intent that will start the Main-Activity. */
                 Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
-//                Intent mainIntent = new Intent(SplashActivity.this, AddBtnActivity.class);
+                //Intent mainIntent = new Intent(SplashActivity.this, AddBtnActivity.class);
 
                 // Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
 

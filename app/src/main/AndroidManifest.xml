@@ -22,7 +22,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.splash.floating_icon"></activity>
         <activity
             android:name=".utils.alarmManagerReciever.MyDialogActivity"
             android:launchMode="singleInstance"
