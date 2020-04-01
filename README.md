@@ -1,7 +1,6 @@
 Trip Mate Android Mobile Application
-System Requiremnets:
+Requiremnets:
 -SDK Version:21-29
-
 
 General Information
 
@@ -12,9 +11,9 @@ The application should remind the user with the trips on the time specified by t
 In addition, the application should navigate the user to the right destination , and save the user's trips notes if there are any.
 After that, the application should keep track of the upcoming and past trips.
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
 
-Our App Scenario
+App Scenario
 
 1- First user can sign up by creating an account or sign in by his/her google account to login.
 2- After he signs up or login he will be directed to the home screen.
@@ -27,7 +26,7 @@ Our App Scenario
 9- If user clicked on history, he can view all his history trips.
 10- User can logout from the application and all data will be saved until the comes back again.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
 Developers
 1- Mohammed El-Arabi
 2- Yasmine Mohey Dwedar
