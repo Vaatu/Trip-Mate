@@ -3,6 +3,7 @@ package com.vaatu.tripmate.ui.home;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
@@ -13,6 +14,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +51,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class UpcomingTripsActivity extends AppCompatActivity {
     android.app.AlertDialog alert;
-
+    private ViewGroup.LayoutParams fabLayoutParams;
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -69,6 +73,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         fbdb = FirebaseDB.getInstance();
         fbdb.saveUserToFirebase(currentUser.getEmail(), username);
 
+
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +83,8 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                 startActivityForResult(i, 55);
             }
         });
+        fabLayoutParams = fab.getLayoutParams();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -86,13 +93,13 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         userEmailTextView.setText(currentUser.getEmail());
         TextView userNameTextView = vv.findViewById(R.id.userName);
         userNameTextView.setText(currentUser.getDisplayName());
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_sync, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
@@ -163,7 +170,9 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         fab.hide();
+        fab.setLayoutParams(fabLayoutParams);
         fab.show();
+
     }
 
     @Override
