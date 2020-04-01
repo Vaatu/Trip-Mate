@@ -73,9 +73,20 @@ public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHold
 
                         if (item.getItemId() == R.id.delete) {
 
-                            Toast.makeText(cntxt, "Delete Trip", Toast.LENGTH_LONG).show();
+                            Toast.makeText(cntxt, "Trip Deleted!", Toast.LENGTH_LONG).show();
                             mFirebaseDB.removeTripFromHistory(list.get(position));
                             notifyDataSetChanged();
+                        }
+                        if(item.getItemId() == R.id.viewnotes){
+
+
+                            PopupMenu pop = new PopupMenu(cntxt, v);
+                            pop.inflate(R.menu.notes_menu);
+                            for(String n : list.get(position).getNotes()){
+
+                                pop.getMenu().add(n);
+                            }
+                            pop.show();
                         }
 
                         return false;

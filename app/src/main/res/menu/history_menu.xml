@@ -6,4 +6,9 @@
         android:title="@string/delete_trip">
 
     </item>
+    <item
+        android:title="View Notes"
+        android:id="@+id/viewnotes">
+
+    </item>
 </menu>
