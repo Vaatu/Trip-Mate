@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.vaatu.tripmate.R;
 import com.vaatu.tripmate.data.remote.network.FirebaseDB;
 import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
@@ -67,17 +73,19 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                Intent addButtonActivity = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
-//                startActivity(addButtonActivity);
+
                 Intent i = new Intent(UpcomingTripsActivity.this, AddBtnActivity.class);
                 startActivityForResult(i, 55);
-
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        View vv = navigationView.getHeaderView(0);
+        TextView userEmailTextView = vv.findViewById(R.id.userEmail);
+        userEmailTextView.setText(currentUser.getEmail());
+        TextView userNameTextView = vv.findViewById(R.id.userName);
+        userNameTextView.setText(currentUser.getDisplayName());
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -87,24 +95,37 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                    //TODO       ProgressBar
+                    //TODO    ProgressBar
                 if (menuItem.getItemId() == R.id.nav_sync) {
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm sync", Toast.LENGTH_SHORT).show();
-                    navController.navigate(R.id.action_nav_home_to_nav_sync);
+
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                    fab.hide();
+                    DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+                    connectedRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            boolean connected = snapshot.getValue(Boolean.class);
+
+                            if (connected) {
+                                Toast.makeText(UpcomingTripsActivity.this, "You are Connected", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UpcomingTripsActivity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(UpcomingTripsActivity.this, "Please check your connection", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_logout) {
                     //Navigation here
-                    fab.hide();
-                    Toast.makeText(UpcomingTripsActivity.this, "I'm logout", Toast.LENGTH_SHORT).show();
                     signOut();
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     Intent mainIntent = new Intent(UpcomingTripsActivity.this, UserCycleActivity.class);
