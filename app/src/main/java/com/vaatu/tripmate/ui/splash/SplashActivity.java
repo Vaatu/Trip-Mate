@@ -32,8 +32,8 @@ public class SplashActivity extends AppCompatActivity {
 //                Intent mainIntent = new Intent(SplashActivity.this, AddBtnActivity.class);
 
                 // Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
-                Intent intent = new Intent(SplashActivity.this,floating_icon.class);
-                 SplashActivity.this.startActivity(intent);
+//                Intent intent = new Intent(SplashActivity.this,floating_icon.class);
+//                 SplashActivity.this.startActivity(intent);
 
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
