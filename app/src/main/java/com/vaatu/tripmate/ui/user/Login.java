@@ -58,7 +58,7 @@ public class Login extends Fragment {
 
     TextView mStatusTextView;
     
-
+    ProgressBar mProgressBar;
     private static final int RC_SIGN_IN = 9001;
 
     @Override
@@ -72,13 +72,18 @@ public class Login extends Fragment {
         mStatusTextView = view.findViewById(R.id.textViewStatus);
         btnSignIn = view.findViewById(R.id.btnSignIn);
         btnGoogle = view.findViewById(R.id.google_btn);
-
+        mProgressBar = view.findViewById(R.id.indeterminateBar);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        //ProgressBar
+
+
         if (currentUser != null){
+            mProgressBar.setVisibility(View.VISIBLE);
             Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
             startActivity(mainIntent);
+            mProgressBar.setVisibility(View.INVISIBLE);
             getActivity().finish();
         }
 
@@ -105,6 +110,8 @@ public class Login extends Fragment {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressBar();
+
                 login(emailField.getText().toString(), passField.getText().toString());
             }
         });
@@ -141,6 +148,7 @@ public class Login extends Fragment {
 
 
     void login(String email, String password) {
+        showProgressBar();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -189,7 +197,6 @@ public class Login extends Fragment {
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -212,7 +219,8 @@ public class Login extends Fragment {
     }
 
     private void updateUI(FirebaseUser user) {
-//        hideProgressBar();
+        hideProgressBar();
+
         if (user != null) {
 
             Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
@@ -224,7 +232,13 @@ public class Login extends Fragment {
         }
     }
 
-//    hideProgressBar(){}
-//    showProgressBar(){}
+    private void hideProgressBar(){
+        mProgressBar.setVisibility(View.VISIBLE);
+
+    }
+    private void showProgressBar(){
+        mProgressBar.setVisibility(View.INVISIBLE);
+
+    }
 
 }
