@@ -4,26 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#54265B"
+    android:background="#1A7CD1"
     tools:context=".ui.user.Login">
 
     <EditText
         android:id="@+id/emailField"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_marginTop="85dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/passField"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="@string/pass"
         android:inputType="textPassword"
@@ -36,7 +42,7 @@
         android:layout_width="122dp"
         android:layout_height="37dp"
         android:layout_marginTop="63dp"
-        android:background="#D72E9E"
+        android:background="#3F51B5"
         android:text="@string/sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,9 +63,10 @@
         android:layout_width="122dp"
         android:layout_height="37dp"
         android:layout_marginTop="25dp"
-        android:background="#D72E9E"
+        android:background="#3F51B5"
         android:text="Sign Up"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 

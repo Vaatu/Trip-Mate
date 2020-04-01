@@ -4,54 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#54265B"
+    android:background="#FF1A7CD1"
     tools:context=".ui.user.SignUp">
 
     <EditText
         android:id="@+id/passField"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Pass"
         android:inputType="textPassword"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailField" />
 
     <EditText
         android:id="@+id/passField2"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Confirm Pass"
         android:inputType="textPassword"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passField" />
 
     <EditText
         android:id="@+id/emailField"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <EditText
         android:id="@+id/nameField"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -61,8 +77,9 @@
         android:layout_height="37dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="60dp"
-        android:background="#D72E9E"
+        android:background="#3F51B5"
         android:text="@string/sign_up"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passField2" />
 
@@ -82,8 +99,10 @@
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="#D72E9E"
+        android:background="#3F51B5"
         android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
