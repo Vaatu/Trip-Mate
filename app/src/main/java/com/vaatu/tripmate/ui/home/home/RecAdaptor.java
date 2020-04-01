@@ -43,7 +43,6 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
         View v = inflate.inflate(R.layout.custom_card_row, parent, false);
         mFirebaseDB = FirebaseDB.getInstance();
         ViewHolder vh = new ViewHolder(v);
-
         return vh;
     }
 

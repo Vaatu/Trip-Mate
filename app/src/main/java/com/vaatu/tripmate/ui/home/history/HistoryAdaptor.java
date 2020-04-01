@@ -39,6 +39,7 @@ public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflate = LayoutInflater.from(parent.getContext());
         View v = inflate.inflate(R.layout.history_card_row, parent, false);
+        mFirebaseDB = FirebaseDB.getInstance();
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -64,8 +65,8 @@ public class HistoryAdaptor extends RecyclerView.Adapter<HistoryAdaptor.ViewHold
                         if (item.getItemId() == R.id.delete) {
 
                             Toast.makeText(cntxt, "Delete Trip", Toast.LENGTH_LONG).show();
-                          //  mFirebaseDB.removeTripFromHistory(list.get(position));
-                            //notifyDataSetChanged();
+                            mFirebaseDB.removeTripFromHistory(list.get(position));
+                            notifyDataSetChanged();
                         }
 
                         return false;
