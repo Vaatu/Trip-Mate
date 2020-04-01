@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+
 
     <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
@@ -64,6 +65,7 @@
         </receiver>
 
         <service android:name=".utils.alarmManagerReciever.MyRingingService" />
+        <service android:name=".service.FloatingWindowService"></service>
     </application>
 
 </manifest>
