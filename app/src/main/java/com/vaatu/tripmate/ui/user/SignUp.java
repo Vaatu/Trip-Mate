@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class SignUp extends Fragment {
     Button btnSignUp;
 
     TextView mStatusTextView;
+    ProgressBar mProgressBar;
 
 
     @Override
@@ -58,6 +60,7 @@ public class SignUp extends Fragment {
 
         btnBack = view.findViewById(R.id.btnBack);
         btnSignUp = view.findViewById(R.id.btnSignUp);
+        mProgressBar = view.findViewById(R.id.determinateBar);
 
         emailField = view.findViewById(R.id.emailField);
         passField = view.findViewById(R.id.passField);
@@ -77,11 +80,15 @@ public class SignUp extends Fragment {
             public void onClick(View v) {
                 if (nameField.getText().toString().equals("")) {
                     mStatusTextView.setText("Please enter your name");
+                    hideProgressBar();
+
                 } else {
                     if (passField.getText().toString().equals(passField2.getText().toString())) {
                         createUser(emailField.getText().toString(), passField.getText().toString());
                     } else {
                         mStatusTextView.setText("Password doesn't match");
+                        hideProgressBar();
+
                     }
                 }
 
@@ -107,6 +114,8 @@ public class SignUp extends Fragment {
     }
 
     void createUser(String email, String password) {
+        showProgressBar();
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -118,6 +127,8 @@ public class SignUp extends Fragment {
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
+                            hideProgressBar();
+
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -130,7 +141,7 @@ public class SignUp extends Fragment {
     }
 
     private void updateUI(FirebaseUser user) {
-//        hideProgressBar();
+        hideProgressBar();
         if (user != null) {
 
             Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
@@ -145,11 +156,11 @@ public class SignUp extends Fragment {
     }
 
     private void hideProgressBar(){
-//        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
 
     }
     private void showProgressBar(){
-//        mProgressBar.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
 
     }
 }

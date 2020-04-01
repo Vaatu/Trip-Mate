@@ -72,7 +72,7 @@ public class Login extends Fragment {
         mStatusTextView = view.findViewById(R.id.textViewStatus);
         btnSignIn = view.findViewById(R.id.btnSignIn);
         btnGoogle = view.findViewById(R.id.google_btn);
-        mProgressBar = view.findViewById(R.id.indeterminateBar);
+        mProgressBar = view.findViewById(R.id.determinateBar);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
