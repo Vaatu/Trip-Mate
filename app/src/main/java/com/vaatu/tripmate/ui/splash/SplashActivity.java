@@ -12,8 +12,11 @@ import com.vaatu.tripmate.ui.home.addButtonActivity.AddBtnActivity;
 import com.vaatu.tripmate.ui.user.UserCycleActivity;
 
 public class SplashActivity extends AppCompatActivity {
-    /** Duration of wait **/
+    /**
+     * Duration of wait
+     **/
     private final int SPLASH_DISPLAY_LENGTH = 1500;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,15 +24,16 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 
-
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 /* Create an Intent that will start the Main-Activity. */
                 Intent mainIntent = new Intent(SplashActivity.this, UserCycleActivity.class);
 //                Intent mainIntent = new Intent(SplashActivity.this, AddBtnActivity.class);
 
-               // Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
+                // Intent mainIntent = new Intent(SplashActivity.this, UpcomingTripsActivity.class);
+                Intent intent = new Intent(SplashActivity.this,floating_icon.class);
+                 SplashActivity.this.startActivity(intent);
 
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();

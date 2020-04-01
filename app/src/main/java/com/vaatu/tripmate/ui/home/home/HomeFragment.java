@@ -44,14 +44,19 @@ public class HomeFragment extends Fragment {
 
         RecyclerView rev = root.findViewById(R.id.recycler);
         RecAdaptor adpater = new RecAdaptor(tripDetails, getActivity());
-        rev.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        rev.setLayoutManager(linearLayoutManager);
+        //rev.setLayoutManager(new LinearLayoutManager(getContext()));
         rev.setAdapter(adpater);
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                Log.i("DataSnapshot Loop" ,"##" );
+                Log.i("DataSnapshot Loop", "##");
                 tripDetails.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -72,10 +77,8 @@ public class HomeFragment extends Fragment {
         mTripsRef.addValueEventListener(postListener);
 
 
-
         return root;
     }
-
 
 
 }
