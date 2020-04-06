@@ -32,7 +32,6 @@ public class AlarmEventReciever extends BroadcastReceiver {
 
         if (tm != null) {
             displayAlert(tm);
-            Toast.makeText(context, "ANA SHA8ALA YABNY <3" + tm.getTripname(), Toast.LENGTH_SHORT).show();
             Log.i("OnReceive", "Trip name" + tm.getTripname());
         }
 
