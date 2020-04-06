@@ -123,8 +123,8 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                             boolean connected = snapshot.getValue(Boolean.class);
 
                             if (connected) {
-                                Toast.makeText(UpcomingTripsActivity.this, "You are Connected", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(UpcomingTripsActivity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UpcomingTripsActivity.this, "You are Connected and Data Updated", Toast.LENGTH_SHORT).show();
+
                             } else {
                                 Toast.makeText(UpcomingTripsActivity.this, "Please check your connection", Toast.LENGTH_SHORT).show();
                             }
@@ -161,6 +161,14 @@ public class UpcomingTripsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void showFloatingActionButton() {
+        fab.show();
+    };
+
+    public void hideFloatingActionButton() {
+        fab.hide();
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

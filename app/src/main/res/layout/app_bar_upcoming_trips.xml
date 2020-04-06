@@ -25,8 +25,8 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
-        android:background="#6200ea"
-        app:backgroundTint="#6200ea"
+        android:background="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary"
         app:rippleColor="#6200ea"
         app:backgroundTintMode="src_in"
         android:layout_height="wrap_content"
