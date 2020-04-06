@@ -113,7 +113,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     //TODO    ProgressBar
                 if (menuItem.getItemId() == R.id.nav_sync) {
                   //  Toast.makeText(UpcomingTripsActivity.this, "", Toast.LENGTH_SHORT).show();
-                    navController.navigate(R.id.action_nav_home_to_nav_sync);
+//                    navController.navigate(R.id.action_nav_home_to_nav_sync);
 
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
