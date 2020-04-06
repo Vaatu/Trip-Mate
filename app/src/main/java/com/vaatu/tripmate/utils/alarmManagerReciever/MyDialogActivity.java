@@ -56,7 +56,7 @@ public class MyDialogActivity extends Activity {
         if (tm != null) {
             startAlarmRingTone(r);
             AlertDialog.Builder Builder = new AlertDialog.Builder(this)
-                    .setMessage("Your Trip"+ tm.getTripname() +"is now on...")
+                    .setMessage("Your Trip: "+ tm.getTripname() +" is now on...")
                     .setTitle("Trip reminder")
                     .setIcon(android.R.drawable.ic_lock_idle_alarm)
                     .setNegativeButton("Snooze", new DialogInterface.OnClickListener() {
