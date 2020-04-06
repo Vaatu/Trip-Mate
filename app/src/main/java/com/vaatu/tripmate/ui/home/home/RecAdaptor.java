@@ -90,7 +90,7 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
                             PopupMenu pop = new PopupMenu(cntxt, v);
                             pop.inflate(R.menu.notes_menu);
-                            for(String n : list.get(position).getNotes()){
+                            for (String n : list.get(position).getNotes()) {
 
                                 pop.getMenu().add(n);
                             }
@@ -98,17 +98,12 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
 
                         }
                         if (item.getItemId() == R.id.cancel) {
-                            Toast.makeText(cntxt, "Cancel Trip : " + position, Toast.LENGTH_LONG).show();
-
-                            TripModel deleteditem;
-//                            deleteditem = list.get(position);
-//                            list.remove(deleteditem);
+                            // Toast.makeText(cntxt, "Cancel Trip : " + position, Toast.LENGTH_LONG).show();
+                            Toast.makeText(cntxt, "Canceled Trip!", Toast.LENGTH_LONG).show();
                             list.get(position).setStatus("Canceled!");
                             mFirebaseDB.addTripToHistory(list.get(position));
                             mFirebaseDB.removeFromUpcoming(list.get(position));
                             notifyDataSetChanged();
-                            //Canceled List add the deleted items
-//                            canceledlist.add(deleteditem);
 
                         }
                         return false;
@@ -116,7 +111,6 @@ public class RecAdaptor extends RecyclerView.Adapter<RecAdaptor.ViewHolder> {
                 });
 
                 popupMenu.show();
-
 
             }
         });
