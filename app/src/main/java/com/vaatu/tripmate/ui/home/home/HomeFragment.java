@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vaatu.tripmate.R;
+import com.vaatu.tripmate.ui.home.UpcomingTripsActivity;
 import com.vaatu.tripmate.utils.TripModel;
 
 import java.util.ArrayList;
@@ -80,5 +81,15 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onDestroy() {
 
+        super.onDestroy();
+        if (getActivity() instanceof UpcomingTripsActivity) {
+            ((UpcomingTripsActivity) getActivity()).showFloatingActionButton();
+
+           // showFloatingActionButton();
+        }
+
+    }
 }
