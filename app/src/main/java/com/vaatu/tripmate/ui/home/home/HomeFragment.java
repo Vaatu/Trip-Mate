@@ -81,15 +81,4 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onDestroy() {
-
-        super.onDestroy();
-        if (getActivity() instanceof UpcomingTripsActivity) {
-            ((UpcomingTripsActivity) getActivity()).showFloatingActionButton();
-
-           // showFloatingActionButton();
-        }
-
-    }
 }

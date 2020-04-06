@@ -41,6 +41,7 @@ import com.vaatu.tripmate.ui.user.UserCycleActivity;
 import com.vaatu.tripmate.utils.TripModel;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -49,9 +50,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class UpcomingTripsActivity extends AppCompatActivity {
+public class UpcomingTripsActivity extends AppCompatActivity   {
     android.app.AlertDialog alert;
-    private ViewGroup.LayoutParams fabLayoutParams;
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -70,6 +70,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         //Overlay Permission
         checkPermission();
+
         fbdb = FirebaseDB.getInstance();
         fbdb.saveUserToFirebase(currentUser.getEmail(), username);
 
@@ -85,7 +86,9 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                 startActivityForResult(i, 55);
             }
         });
-        fabLayoutParams = fab.getLayoutParams();
+
+
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -112,8 +115,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
 
                     //TODO    ProgressBar
                 if (menuItem.getItemId() == R.id.nav_sync) {
-                  //  Toast.makeText(UpcomingTripsActivity.this, "", Toast.LENGTH_SHORT).show();
-//                    navController.navigate(R.id.action_nav_home_to_nav_sync);
+
 
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
@@ -151,9 +153,10 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_history) {
                     //Navigation here
+                    // TODO Hide on History and show on going back to Home !
+                    //fab.hide();
                     navController.navigate(R.id.action_HomeFragment_to_History);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                    fab.hide();
                     return true;
                 }
 
@@ -162,13 +165,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         });
     }
 
-    public void showFloatingActionButton() {
-        fab.show();
-    };
 
-    public void hideFloatingActionButton() {
-        fab.hide();
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -182,7 +179,6 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         
-        fab.setLayoutParams(fabLayoutParams);
         fab.show();
 
     }

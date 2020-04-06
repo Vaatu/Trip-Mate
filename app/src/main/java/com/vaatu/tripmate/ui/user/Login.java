@@ -112,7 +112,6 @@ public class Login extends Fragment {
             @Override
             public void onClick(View v) {
                 showProgressBar();
-
                 login(emailField.getText().toString(), passField.getText().toString());
             }
         });
@@ -234,11 +233,11 @@ public class Login extends Fragment {
     }
 
     private void hideProgressBar(){
-        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
 
     }
     private void showProgressBar(){
-        mProgressBar.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
 
     }
 

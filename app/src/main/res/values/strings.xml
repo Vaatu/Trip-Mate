@@ -55,6 +55,7 @@
     <string name="start_point">Start Point</string>
     <string name="destination">Destination</string>
     <string name="des">"Enter Destination "</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="times_array">
         <item>Don\'t Repeat</item>

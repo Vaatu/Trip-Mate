@@ -58,6 +58,8 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
 
     @BindView(R.id.add_trip_btn)
     Button addTripBtn;
+    @BindView(R.id.cancel_btn)
+    Button cancelBtn;
     @BindView(R.id.repeat_spinner)
     Spinner repeatSpinner;
     @BindView(R.id.trip_way_spinner)
@@ -163,7 +165,7 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
 
     }
 
-    @OnClick({R.id.add_trip_btn, R.id.add_note_btn, R.id.dateTextField, R.id.timeTextField})
+    @OnClick({R.id.add_trip_btn, R.id.add_note_btn, R.id.dateTextField, R.id.timeTextField,R.id.cancel_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_trip_btn:
@@ -203,6 +205,9 @@ public class AddBtnActivity extends AppCompatActivity implements TimePickerDialo
             case R.id.timeTextField:
                 DialogFragment timepicker = new TimePickerFragment();
                 timepicker.show(getSupportFragmentManager(), "time");
+                break;
+            case R.id.cancel_btn:
+                finish();
                 break;
         }
     }

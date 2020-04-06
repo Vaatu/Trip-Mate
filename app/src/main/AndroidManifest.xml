@@ -22,12 +22,14 @@
             android:name=".utils.alarmManagerReciever.MyDialogActivity"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity android:name=".ui.home.addButtonActivity.AddBtnActivity" />
+        <activity android:name=".ui.home.addButtonActivity.AddBtnActivity"  android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.home.UpcomingTripsActivity"
             android:label="@string/title_activity_upcoming_trips"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.user.UserCycleActivity"
             android:label="@string/title_activity_user_cycle"
             android:theme="@style/AppTheme.NoActionBar" />
