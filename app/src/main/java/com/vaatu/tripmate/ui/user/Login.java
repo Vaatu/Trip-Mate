@@ -148,7 +148,6 @@ public class Login extends Fragment {
 
 
     void login(String email, String password) {
-        showProgressBar();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -220,7 +219,6 @@ public class Login extends Fragment {
 
     private void updateUI(FirebaseUser user) {
         hideProgressBar();
-
         if (user != null) {
 
             Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
