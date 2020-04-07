@@ -88,11 +88,9 @@ public class Login extends Fragment {
             getActivity().finish();
         }
 
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                 Bundle bundle = new Bundle();
                 if (!emailField.getText().toString().equals("") && !passField.getText().toString().equals("")) {
@@ -102,7 +100,6 @@ public class Login extends Fragment {
                     emailField.setError("Enter an Email");
                     passField.setError("Must Enter Password");
                 }
-
                 navController.navigate(R.id.action_login_signUp,bundle);
 
             }
@@ -168,7 +165,6 @@ public class Login extends Fragment {
                     }
                 });
     }
-
 
     private void signIn() {
         Log.i("Google Sign in" , "Im in");
