@@ -43,9 +43,9 @@ App Scenario
 
   3- Aly Serry
 
- #Corresponding Tasks:
-# Mohammed El Aarabi --> Add Trip with google auto-complete + FireBase Database  + Alert Dialog Reminder + Floating Widget 
-# Yasmine Mohey Dwedar --> Navigation Drawer + Upcoming Trip and Histroy CardViews with recycler + Side Pop Menus
-#           Aly Serry --> Splash Screen + Login + Sign up + Google Sign in + Firebase Auth + Notification service  
+# Corresponding Tasks:
+  Mohammed El Aarabi --> Add Trip with google auto-complete + FireBase Database  + Alert Dialog Reminder + Floating Widget 
+  Yasmine Mohey Dwedar --> Navigation Drawer + Upcoming Trip and Histroy CardViews with recycler + Side Pop Menus
+  Aly Serry --> Splash Screen + Login + Sign up + Google Sign in + Firebase Auth + Notification service  
 
 
