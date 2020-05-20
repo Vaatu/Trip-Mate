@@ -1,6 +1,6 @@
 # Trip Mate Android Mobile Application
 # Requiremnets:
-# -SDK Version:21-29
+-SDK Version:21-29
 
 # General Information
 
@@ -15,7 +15,7 @@ After that, the application should keep track of the upcoming and past trips.
 
 App Scenario
 
-  1- First user can sign up by creating an account or sign in by his/her google account to login.
+ - 1- First user can sign up by creating an account or sign in by his/her google account to login.
 
   2- After he signs up or login he will be directed to the home screen.
 
